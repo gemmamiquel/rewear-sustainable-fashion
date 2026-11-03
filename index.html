@@ -23,6 +23,7 @@ nav{height:75px;padding:0 5vw;display:flex;align-items:center;justify-content:sp
 .links a:hover{color:var(--red)}
 .btn{display:inline-block;background:var(--ink);color:white;border:0;padding:14px 19px;font:11px 'DM Mono';cursor:pointer;transition:.2s}
 .btn:hover{background:var(--red);transform:translateY(-2px)}
+.btn:disabled{opacity:.45;cursor:not-allowed;transform:none}
 .hero{padding:55px 5vw 70px;display:grid;grid-template-columns:1.05fr .95fr;gap:4vw;align-items:center}
 h1{font:700 clamp(65px,10vw,145px)/.8 'Space Grotesk';letter-spacing:-.1em;margin:25px 0;text-transform:uppercase}
 .outline{color:transparent;-webkit-text-stroke:1.5px var(--ink)}
@@ -58,16 +59,14 @@ h2 em{font-family:Georgia,serif;font-weight:400;text-transform:none}
 .field label{display:block;font:10px 'DM Mono';text-transform:uppercase;margin-bottom:8px}
 .field input,.field select{width:100%;padding:13px;border:1px solid #c9c6bd;background:white}
 .result{padding:18px;background:var(--lime);font-size:13px;line-height:1.6;margin-top:15px}
-
-/* NEW: VISUAL STYLE REMIX RESULT */
 .look-result{padding:18px;background:var(--lime);margin-top:15px}
 .look-result img{width:100%;height:300px;object-fit:cover;display:block;margin-bottom:18px}
 .look-result .look-description{font-size:14px;line-height:1.7;color:var(--ink)}
 .look-result .style-note{font-size:12px;line-height:1.6;color:#444;margin-bottom:0}
 .look-label{font:10px 'DM Mono';letter-spacing:.12em;text-transform:uppercase;margin-bottom:10px}
-
 .chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:15px}
-.chip{background:#e9e6dc;padding:8px;font-size:11px}
+.chip{background:#e9e6dc;padding:8px;font-size:11px;display:inline-flex;align-items:center;gap:7px;margin:3px}
+.chip button{border:0;background:none;cursor:pointer;font-size:15px}
 .challenge{background:var(--lime)}
 .challengebox{background:var(--ink);color:white;padding:28px;max-width:680px}
 .check{display:flex;gap:12px;margin:15px 0;font-size:13px}
@@ -84,9 +83,11 @@ h2 em{font-family:Georgia,serif;font-weight:400;text-transform:none}
 .quiz-options button{background:none;color:white;border:1px solid white;padding:13px;cursor:pointer}
 .quiz-options button.selected{background:var(--lime);color:var(--ink)}
 #quizResult{font:italic 22px Georgia;min-height:32px}
-footer{background:var(--ink);color:white;padding:38px 5vw;display:flex;justify-content:space-between}
+footer{background:var(--ink);color:white;padding:38px 5vw;display:flex;justify-content:space-between;align-items:center;gap:25px}
 footer p{font:10px 'DM Mono';color:#aaa}
-
+.footer-credit{text-align:right;align-self:center}
+.footer-credit p{font:9px 'DM Mono';letter-spacing:.12em;color:#aaa;margin-top:14px}
+.footer-credit strong{color:var(--lime);font-weight:400}
 @media(max-width:760px){
 .links{display:none}
 .hero{grid-template-columns:1fr;padding:40px 5vw}
@@ -96,6 +97,7 @@ footer p{font:10px 'DM Mono';color:#aaa}
 .section,.studio{padding:60px 5vw}
 footer{display:block}
 .look-result img{height:250px}
+.footer-credit{text-align:left;margin-top:25px}
 }
 </style>
 </head>
@@ -190,16 +192,11 @@ footer{display:block}
 <div>
 <div class="eyebrow">THE STYLE REMIXER</div>
 <h3>One piece.<br>Three new directions.</h3>
-<p>Choose a starting point and a mood. Get an outfit idea built around pieces you might already own.</p>
+<p>Choose a piece from your own closet and a mood. RE:WEAR will create an editorial styling idea using only the clothes you already own.</p>
 <div class="field">
 <label>Starting piece</label>
 <select id="base">
-<option>White shirt</option>
-<option>Vintage jeans</option>
-<option>Black tailored trousers</option>
-<option>Oversized blazer</option>
-<option>Little black dress</option>
-<option>Statement sneakers</option>
+<option value="">Add clothes to your Digital Closet first</option>
 </select>
 </div>
 <div class="field">
@@ -210,7 +207,8 @@ footer{display:block}
 <option value="polished">Quietly polished</option>
 </select>
 </div>
-<button class="btn" onclick="remix()">GENERATE MY LOOK ↗</button>
+<button class="btn" id="remixButton" onclick="remix()" disabled>GENERATE MY LOOK ↗</button>
+<div id="remixNotice" style="font-size:12px;line-height:1.6;margin-top:12px;color:#77766f">Your Digital Closet will provide the pieces for your look.</div>
 </div>
 
 <div>
@@ -218,7 +216,7 @@ footer{display:block}
 <div class="look-result">
 <div class="look-label">STYLE INSPIRATION / YOUR NEXT LOOK</div>
 <img id="lookImage" src="https://images.unsplash.com/photo-1539109136881-3be0616acf4b?auto=format&fit=crop&w=1000&q=85" alt="Fashion outfit inspiration">
-<div id="outfitText" class="look-description">Choose your starting piece and mood, then generate your look. Your visual inspiration will appear here.</div>
+<div id="outfitText" class="look-description">Add pieces to your Digital Closet, choose your mood and generate an editorial look using your own wardrobe.</div>
 <p class="style-note">Style note: shop your own wardrobe before adding anything new.</p>
 </div>
 </div>
@@ -321,120 +319,291 @@ footer{display:block}
 <div class="brand">RE<b>:</b>WEAR®</div>
 <p>THE NEW RULES OF FASHION. VOL. 01 — 2026</p>
 </div>
+<div class="footer-credit">
 <div class="mono">LESS IMPULSE. MORE POINT OF VIEW. ↗</div>
+<p>AN INDEPENDENT FASHION PROJECT BY <strong>GEMMA MIQUEL</strong></p>
+</div>
 </footer>
 
 <script>
 const $=id=>document.getElementById(id);
 
-let closet=JSON.parse(localStorage.getItem('rewearCloset')||'[]');
+let closet=[];
+try{
+closet=JSON.parse(localStorage.getItem('rewearCloset')||'[]');
+if(!Array.isArray(closet))closet=[];
+}catch(error){
+closet=[];
+}
+
+function saveCloset(){
+localStorage.setItem('rewearCloset',JSON.stringify(closet));
+}
 
 function render(){
 $('count').textContent=closet.length+' pieces';
-$('items').innerHTML=closet.length
-?closet.map((x,i)=>`<span class="chip">${x.name} · ${x.category} <button onclick="removeItem(${i})">×</button></span>`).join(' ')
-:'Your closet is waiting. Add your first piece.';
+
+if(closet.length){
+$('items').innerHTML='';
+closet.forEach((item,index)=>{
+const chip=document.createElement('span');
+chip.className='chip';
+chip.textContent=item.name+' · '+item.category+' ';
+
+const removeButton=document.createElement('button');
+removeButton.textContent='×';
+removeButton.setAttribute('aria-label','Remove '+item.name);
+removeButton.onclick=()=>removeItem(index);
+
+chip.appendChild(removeButton);
+$('items').appendChild(chip);
+});
+}else{
+$('items').textContent='Your closet is waiting. Add your first piece.';
+}
+
+updateBaseOptions();
+}
+
+function updateBaseOptions(){
+const base=$('base');
+const previousValue=base.value;
+base.innerHTML='';
+
+if(closet.length===0){
+const option=document.createElement('option');
+option.value='';
+option.textContent='Add clothes to your Digital Closet first';
+base.appendChild(option);
+base.disabled=true;
+$('remixButton').disabled=true;
+$('remixNotice').textContent='Add at least one item to your Digital Closet to start styling.';
+return;
+}
+
+base.disabled=false;
+
+closet.forEach((item,index)=>{
+const option=document.createElement('option');
+option.value=String(index);
+option.textContent=item.name+' — '+item.category;
+base.appendChild(option);
+});
+
+if(previousValue!==''&&Number(previousValue)<closet.length){
+base.value=previousValue;
+}else{
+base.value='0';
+}
+
+$('remixButton').disabled=false;
+$('remixNotice').textContent='Your looks are built exclusively from the pieces in your Digital Closet.';
 }
 
 function addClothing(){
-let name=$('clothing').value.trim();
-if(!name){$('notice').textContent='Please enter a clothing item.';return;}
-closet.push({name,category:$('category').value});
-localStorage.setItem('rewearCloset',JSON.stringify(closet));
+const name=$('clothing').value.trim();
+
+if(!name){
+$('notice').textContent='Please enter a clothing item.';
+return;
+}
+
+closet.push({name:name,category:$('category').value});
+saveCloset();
 $('clothing').value='';
 $('notice').textContent='Added to your digital rail!';
 render();
 }
 
-function removeItem(i){
-closet.splice(i,1);
-localStorage.setItem('rewearCloset',JSON.stringify(closet));
+function removeItem(index){
+closet.splice(index,1);
+saveCloset();
 render();
+$('outfitText').textContent='Your wardrobe has changed. Generate a new look to explore your updated edit.';
 }
 
 function clearCloset(){
 if(confirm('Clear your digital closet?')){
 closet=[];
-localStorage.setItem('rewearCloset','[]');
+saveCloset();
 render();
+$('outfitText').textContent='Your closet is empty. Add some pieces to start creating looks.';
 }
 }
 
-document.querySelectorAll('.tab').forEach(b=>b.addEventListener('click',()=>{
-document.querySelectorAll('.tab,.panel').forEach(x=>x.classList.remove('active'));
-b.classList.add('active');
-$(b.dataset.tab).classList.add('active');
-}));
+document.querySelectorAll('.tab').forEach(button=>{
+button.addEventListener('click',()=>{
+document.querySelectorAll('.tab,.panel').forEach(element=>element.classList.remove('active'));
+button.classList.add('active');
+$(button.dataset.tab).classList.add('active');
+});
+});
 
-const looks={
-effortless:'a relaxed knit, clean sneakers and a roomy tote. Keep the palette tonal.',
-bold:'a graphic layer, unexpected colour and chunky shoes. Mix a statement piece with an old favourite.',
-polished:'a fine knit, tailored layers and understated accessories. Focus on shape and detail.'
-};
-
-/* NEW: VISUAL OUTFIT INSPIRATION */
 const lookImages={
 effortless:'https://images.unsplash.com/photo-1539109136881-3be0616acf4b?auto=format&fit=crop&w=1000&q=85',
 bold:'https://images.unsplash.com/photo-1529139574466-a303027c1d8b?auto=format&fit=crop&w=1000&q=85',
 polished:'https://images.unsplash.com/photo-1485230895905-ec40ba36b9bc?auto=format&fit=crop&w=1000&q=85'
 };
 
+const moodDetails={
+effortless:{
+title:'OFF-DUTY EFFORTLESS',
+intro:'The art of looking considered without looking like you tried too hard.',
+advice:'Keep the styling relaxed. Let proportions do the work, avoid overthinking the combination and give your favourite piece room to stand out.',
+categories:['Tops','Bottoms','Shoes','Outerwear','Accessories','Dresses']
+},
+bold:{
+title:'ART-SCHOOL ENERGY',
+intro:'A more experimental approach. Personal style should never feel predictable.',
+advice:'Play with contrast, unexpected proportions and the tension between different pieces. Make the combination feel intentional, not too perfect.',
+categories:['Accessories','Outerwear','Tops','Bottoms','Shoes','Dresses']
+},
+polished:{
+title:'QUIETLY POLISHED',
+intro:'Understated styling, thoughtful details and a strong sense of proportion.',
+advice:'Focus on balance, clean lines and simplicity. Let the quality and character of each existing piece speak for itself.',
+categories:['Outerwear','Tops','Bottoms','Accessories','Shoes','Dresses']
+}
+};
+
 function remix(){
+if(closet.length===0){
+$('outfitText').textContent='Your Digital Closet is empty. Add some pieces before creating a look.';
+return;
+}
+
+const selectedIndex=Number($('base').value);
+const basePiece=closet[selectedIndex];
+
+if(!basePiece){
+$('outfitText').textContent='Please choose a valid starting piece from your Digital Closet.';
+return;
+}
+
 const mood=$('mood').value;
-const piece=$('base').value;
+const details=moodDetails[mood];
+
+const otherPieces=closet
+.map((item,index)=>({...item,index}))
+.filter(item=>item.index!==selectedIndex);
+
+const selectedPieces=[basePiece];
+const usedCategories=[basePiece.category];
+
+for(const category of details.categories){
+if(selectedPieces.length>=3)break;
+
+const candidate=otherPieces.find(item=>
+item.category===category&&
+!usedCategories.includes(item.category)
+);
+
+if(candidate){
+selectedPieces.push(candidate);
+usedCategories.push(candidate.category);
+}
+}
+
+if(selectedPieces.length<3){
+for(const item of otherPieces){
+if(selectedPieces.length>=3)break;
+
+const alreadyAdded=selectedPieces.some(piece=>
+piece.name===item.name&&piece.category===item.category
+);
+
+if(!alreadyAdded)selectedPieces.push(item);
+}
+}
 
 $('lookImage').src=lookImages[mood];
-$('lookImage').alt='Fashion inspiration for '+mood+' style';
+$('lookImage').alt='Fashion inspiration for '+details.title.toLowerCase();
+
+const piecesHTML=selectedPieces.map(item=>
+'<li><strong>'+escapeHTML(item.name)+'</strong> <span>('+escapeHTML(item.category)+')</span></li>'
+).join('');
+
+let combinationText='';
+
+if(selectedPieces.length===1){
+combinationText='This piece takes centre stage. Experiment with how you wear it: change the silhouette, play with proportions and give it a different attitude.';
+}else if(selectedPieces.length===2){
+combinationText='A two-piece combination with room for experimentation. Try different proportions and let the contrast between these pieces create the look.';
+}else{
+combinationText='Three pieces, multiple possibilities. Experiment with layering, proportions and unexpected combinations to make the outfit your own.';
+}
 
 $('outfitText').innerHTML=
-'<b>'+piece+' + '+looks[mood]+'</b>';
+'<div class="look-label">'+details.title+'</div>'+
+'<p>'+details.intro+'</p>'+
+'<p><strong>YOUR WARDROBE EDIT</strong></p>'+
+'<ul>'+piecesHTML+'</ul>'+
+'<p>'+combinationText+'</p>'+
+'<p><strong>THE STYLING DIRECTION</strong><br>'+details.advice+'</p>';
+}
+
+function escapeHTML(value){
+return String(value).replace(/[&<>"']/g,function(character){
+const entities={
+'&':'&amp;',
+'<':'&lt;',
+'>':'&gt;',
+'"':'&quot;',
+"'":'&#039;'
+};
+return entities[character];
+});
 }
 
 function impactCheck(){
-let f=$('frequency').value,a=$('alternative').value,title,msg;
+let f=$('frequency').value;
+let a=$('alternative').value;
+let title,msg;
+
 if(f==='rarely'){
 title='PAUSE BEFORE YOU PURCHASE';
 msg='Try borrowing, renting, swapping or styling something you already own.';
-}
-else if(a==='no'){
+}else if(a==='no'){
 title='DO A LITTLE MORE RESEARCH';
 msg='Check your existing wardrobe and look for second-hand options before buying new.';
-}
-else if(f==='often'){
+}else if(f==='often'){
 title='GREEN LIGHT — WITH INTENTION';
 msg='Check quality, fit and brand information before deciding.';
-}
-else{
+}else{
 title='MAKE IT EARN ITS PLACE';
 msg='Think about cost per wear, versatility and how long it will last.';
 }
+
 $('impactResult').innerHTML='<b>'+title+'</b><br><br>'+msg;
 }
 
 const days=[...document.querySelectorAll('.day')];
 
 function progress(){
-let n=days.filter(d=>d.checked).length;
+let n=days.filter(day=>day.checked).length;
 $('progressText').textContent=n+' / 5 complete';
 $('progressBar').style.width=n*20+'%';
 }
 
-days.forEach((d,i)=>{
-d.checked=localStorage.getItem('rewearDay'+i)==='1';
-d.addEventListener('change',()=>{
-localStorage.setItem('rewearDay'+i,d.checked?'1':'0');
+days.forEach((day,index)=>{
+day.checked=localStorage.getItem('rewearDay'+index)==='1';
+
+day.addEventListener('change',()=>{
+localStorage.setItem('rewearDay'+index,day.checked?'1':'0');
 progress();
 });
 });
 
-function quiz(btn,type){
-document.querySelectorAll('.quiz-options button').forEach(b=>b.classList.remove('selected'));
-btn.classList.add('selected');
+function quiz(button,type){
+document.querySelectorAll('.quiz-options button').forEach(item=>item.classList.remove('selected'));
+button.classList.add('selected');
+
 const answers={
 explorer:'THE EXPLORER — Stay curious. Recreate trends with pieces already in your wardrobe.',
 editor:'THE CONSIDERED EDITOR — Choose fewer pieces that work harder.',
 remixer:'THE REMIXER — You see possibility in what you own. Make outfit repeating your signature.'
 };
+
 $('quizResult').textContent=answers[type];
 }
 
