@@ -6,6 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>RE:WEAR — The New Rules of Fashion</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Mono&family=DM+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+
 <style>
 :root{--red:#f04432;--blue:#2448ff;--lime:#d6ff3f;--ink:#11110f;--paper:#f4f1e9;--muted:#77766f}
 *{box-sizing:border-box}
@@ -57,6 +58,14 @@ h2 em{font-family:Georgia,serif;font-weight:400;text-transform:none}
 .field label{display:block;font:10px 'DM Mono';text-transform:uppercase;margin-bottom:8px}
 .field input,.field select{width:100%;padding:13px;border:1px solid #c9c6bd;background:white}
 .result{padding:18px;background:var(--lime);font-size:13px;line-height:1.6;margin-top:15px}
+
+/* NEW: VISUAL STYLE REMIX RESULT */
+.look-result{padding:18px;background:var(--lime);margin-top:15px}
+.look-result img{width:100%;height:300px;object-fit:cover;display:block;margin-bottom:18px}
+.look-result .look-description{font-size:14px;line-height:1.7;color:var(--ink)}
+.look-result .style-note{font-size:12px;line-height:1.6;color:#444;margin-bottom:0}
+.look-label{font:10px 'DM Mono';letter-spacing:.12em;text-transform:uppercase;margin-bottom:10px}
+
 .chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:15px}
 .chip{background:#e9e6dc;padding:8px;font-size:11px}
 .challenge{background:var(--lime)}
@@ -77,21 +86,34 @@ h2 em{font-family:Georgia,serif;font-weight:400;text-transform:none}
 #quizResult{font:italic 22px Georgia;min-height:32px}
 footer{background:var(--ink);color:white;padding:38px 5vw;display:flex;justify-content:space-between}
 footer p{font:10px 'DM Mono';color:#aaa}
+
 @media(max-width:760px){
-.links{display:none}.hero{grid-template-columns:1fr;padding:40px 5vw}
-.heroart{height:370px}.heading{display:block}
+.links{display:none}
+.hero{grid-template-columns:1fr;padding:40px 5vw}
+.heroart{height:370px}
+.heading{display:block}
 .cards,.directory,.panelgrid{grid-template-columns:1fr}
-.section,.studio{padding:60px 5vw}footer{display:block}
+.section,.studio{padding:60px 5vw}
+footer{display:block}
+.look-result img{height:250px}
 }
 </style>
 </head>
+
 <body>
 <div class="top">INDEPENDENT FASHION THINKING <span>VOL. 01 — 2026</span></div>
+
 <nav>
 <a class="brand" href="#">RE<b>:</b>WEAR®</a>
-<div class="links"><a href="#manifesto">The idea</a><a href="#studio">Style studio</a><a href="#challenge">Challenge</a><a href="#discover">Discover</a></div>
+<div class="links">
+<a href="#manifesto">The idea</a>
+<a href="#studio">Style studio</a>
+<a href="#challenge">Challenge</a>
+<a href="#discover">Discover</a>
+</div>
 <a class="btn" href="#studio">ENTER THE STUDIO ↗</a>
 </nav>
+
 <main>
 <section class="hero">
 <div>
@@ -106,49 +128,143 @@ footer p{font:10px 'DM Mono';color:#aaa}
 <div class="caption">NOT MORE CLOTHES. MORE IMAGINATION.</div>
 </div>
 </section>
+
 <div class="ticker">✳ REPEAT THE LOOK　 ✳ QUESTION THE LABEL　 ✳ MAKE IT LAST　 ✳ BUY LESS, STYLE MORE</div>
+
 <section class="section" id="manifesto">
-<div class="heading"><div><div class="eyebrow">01 / THE RE:WEAR POINT OF VIEW</div><h2>New rules.<br><em>Better habits.</em></h2></div><p class="intro">Sustainable style is not a uniform. It is a mindset: wear what you have, understand what you buy and give good pieces a longer story.</p></div>
+<div class="heading">
+<div>
+<div class="eyebrow">01 / THE RE:WEAR POINT OF VIEW</div>
+<h2>New rules.<br><em>Better habits.</em></h2>
+</div>
+<p class="intro">Sustainable style is not a uniform. It is a mindset: wear what you have, understand what you buy and give good pieces a longer story.</p>
+</div>
 <div class="cards">
 <article class="card"><div>01 — THINK</div><div><h3>Question the impulse.</h3><p>Before the next purchase, ask if it fits your style, your life and your wardrobe.</p></div></article>
 <article class="card"><div>02 — RE-MIX</div><div><h3>Make old feel new.</h3><p>Try unexpected combinations. Your wardrobe has more potential than you think.</p></div></article>
 <article class="card"><div>03 — REPEAT</div><div><h3>Wear it out.</h3><p>Care, repair, swap and rewear. The best pieces are the ones that stay in rotation.</p></div></article>
 </div>
 </section>
+
 <section class="studio" id="studio">
-<div class="heading"><div><div class="eyebrow" style="color:var(--lime)">02 / THE INTERACTIVE EDIT</div><h2>Your wardrobe.<br><span style="color:var(--lime)">Your rules.</span></h2></div><p class="intro">A personal style playground. Add pieces to your digital closet, generate a look and rethink your next fashion move.</p></div>
+<div class="heading">
+<div>
+<div class="eyebrow" style="color:var(--lime)">02 / THE INTERACTIVE EDIT</div>
+<h2>Your wardrobe.<br><span style="color:var(--lime)">Your rules.</span></h2>
+</div>
+<p class="intro">A personal style playground. Add pieces to your digital closet, generate a look and rethink your next fashion move.</p>
+</div>
+
 <div class="tabs">
 <button class="tab active" data-tab="closet">01 DIGITAL CLOSET</button>
 <button class="tab" data-tab="outfit">02 STYLE REMIX</button>
 <button class="tab" data-tab="impact">03 IMPACT CHECK</button>
 </div>
-<div class="panel active" id="closet"><div class="panelgrid">
-<div><div class="eyebrow">BUILD YOUR EDIT</div><h3>What's in your wardrobe?</h3><p>Add pieces you already own. Your list is saved in this browser.</p>
+
+<div class="panel active" id="closet">
+<div class="panelgrid">
+<div>
+<div class="eyebrow">BUILD YOUR EDIT</div>
+<h3>What's in your wardrobe?</h3>
+<p>Add pieces you already own. Your list is saved in this browser.</p>
 <div class="field"><label>Clothing item</label><input id="clothing" placeholder="e.g. vintage denim jacket"></div>
-<div class="field"><label>Category</label><select id="category"><option>Tops</option><option>Bottoms</option><option>Outerwear</option><option>Shoes</option><option>Accessories</option><option>Dresses</option></select></div>
-<button class="btn" onclick="addClothing()">ADD TO MY CLOSET +</button><div id="notice"></div></div>
-<div><div class="eyebrow">YOUR DIGITAL RAIL</div><h3 id="count">0 pieces</h3><div id="items">Your closet is waiting. Add your first piece.</div><button onclick="clearCloset()" style="margin-top:18px;cursor:pointer">CLEAR MY CLOSET</button></div>
-</div></div>
-<div class="panel" id="outfit"><div class="panelgrid">
-<div><div class="eyebrow">THE STYLE REMIXER</div><h3>One piece.<br>Three new directions.</h3><p>Choose a starting point and a mood. Get an outfit idea built around pieces you might already own.</p>
-<div class="field"><label>Starting piece</label><select id="base"><option>White shirt</option><option>Vintage jeans</option><option>Black tailored trousers</option><option>Oversized blazer</option><option>Little black dress</option><option>Statement sneakers</option></select></div>
-<div class="field"><label>Your mood</label><select id="mood"><option value="effortless">Off-duty effortless</option><option value="bold">Art-school energy</option><option value="polished">Quietly polished</option></select></div>
-<button class="btn" onclick="remix()">GENERATE MY LOOK ↗</button></div>
-<div><div class="eyebrow">YOUR GENERATED LOOK</div><div class="result" id="outfitResult">Choose your piece and mood, then generate a look.</div></div>
-</div></div>
-<div class="panel" id="impact"><div class="panelgrid">
-<div><div class="eyebrow">A MOMENT BEFORE YOU BUY</div><h3>Is it a want<br>or a wardrobe gap?</h3><p>A reflection tool to help you pause before a purchase. This is not a scientific environmental footprint calculation.</p>
-<div class="field"><label>How often will you wear it?</label><select id="frequency"><option value="often">Every week</option><option value="sometimes">A few times a month</option><option value="rarely">Only once or twice</option></select></div>
-<div class="field"><label>Have you checked alternatives?</label><select id="alternative"><option value="yes">Yes — second-hand or already owned</option><option value="no">Not yet</option></select></div>
-<button class="btn" onclick="impactCheck()">CHECK MY CHOICE ↗</button></div>
-<div><div class="eyebrow">YOUR CONSIDERED VERDICT</div><div class="result" id="impactResult">Your result will appear here. No guilt, just a more thoughtful choice.</div></div>
-</div></div>
+<div class="field"><label>Category</label>
+<select id="category">
+<option>Tops</option><option>Bottoms</option><option>Outerwear</option><option>Shoes</option><option>Accessories</option><option>Dresses</option>
+</select>
+</div>
+<button class="btn" onclick="addClothing()">ADD TO MY CLOSET +</button>
+<div id="notice"></div>
+</div>
+<div>
+<div class="eyebrow">YOUR DIGITAL RAIL</div>
+<h3 id="count">0 pieces</h3>
+<div id="items">Your closet is waiting. Add your first piece.</div>
+<button onclick="clearCloset()" style="margin-top:18px;cursor:pointer">CLEAR MY CLOSET</button>
+</div>
+</div>
+</div>
+
+<div class="panel" id="outfit">
+<div class="panelgrid">
+<div>
+<div class="eyebrow">THE STYLE REMIXER</div>
+<h3>One piece.<br>Three new directions.</h3>
+<p>Choose a starting point and a mood. Get an outfit idea built around pieces you might already own.</p>
+<div class="field">
+<label>Starting piece</label>
+<select id="base">
+<option>White shirt</option>
+<option>Vintage jeans</option>
+<option>Black tailored trousers</option>
+<option>Oversized blazer</option>
+<option>Little black dress</option>
+<option>Statement sneakers</option>
+</select>
+</div>
+<div class="field">
+<label>Your mood</label>
+<select id="mood">
+<option value="effortless">Off-duty effortless</option>
+<option value="bold">Art-school energy</option>
+<option value="polished">Quietly polished</option>
+</select>
+</div>
+<button class="btn" onclick="remix()">GENERATE MY LOOK ↗</button>
+</div>
+
+<div>
+<div class="eyebrow">YOUR GENERATED LOOK</div>
+<div class="look-result">
+<div class="look-label">STYLE INSPIRATION / YOUR NEXT LOOK</div>
+<img id="lookImage" src="https://images.unsplash.com/photo-1539109136881-3be0616acf4b?auto=format&fit=crop&w=1000&q=85" alt="Fashion outfit inspiration">
+<div id="outfitText" class="look-description">Choose your starting piece and mood, then generate your look. Your visual inspiration will appear here.</div>
+<p class="style-note">Style note: shop your own wardrobe before adding anything new.</p>
+</div>
+</div>
+</div>
+</div>
+
+<div class="panel" id="impact">
+<div class="panelgrid">
+<div>
+<div class="eyebrow">A MOMENT BEFORE YOU BUY</div>
+<h3>Is it a want<br>or a wardrobe gap?</h3>
+<p>A reflection tool to help you pause before a purchase. This is not a scientific environmental footprint calculation.</p>
+<div class="field">
+<label>How often will you wear it?</label>
+<select id="frequency">
+<option value="often">Every week</option>
+<option value="sometimes">A few times a month</option>
+<option value="rarely">Only once or twice</option>
+</select>
+</div>
+<div class="field">
+<label>Have you checked alternatives?</label>
+<select id="alternative">
+<option value="yes">Yes — second-hand or already owned</option>
+<option value="no">Not yet</option>
+</select>
+</div>
+<button class="btn" onclick="impactCheck()">CHECK MY CHOICE ↗</button>
+</div>
+<div>
+<div class="eyebrow">YOUR CONSIDERED VERDICT</div>
+<div class="result" id="impactResult">Your result will appear here. No guilt, just a more thoughtful choice.</div>
+</div>
+</div>
+</div>
 </section>
+
 <section class="section challenge" id="challenge">
 <div class="eyebrow">03 / THE 5-DAY RESET</div>
-<div class="heading"><div><h2>Change the habit.<br><em>Keep the style.</em></h2></div><p class="intro">Five small actions to reconnect with your wardrobe. Tick each one off — your progress is saved on this device.</p></div>
+<div class="heading">
+<div><h2>Change the habit.<br><em>Keep the style.</em></h2></div>
+<p class="intro">Five small actions to reconnect with your wardrobe. Tick each one off — your progress is saved on this device.</p>
+</div>
 <div class="challengebox">
-<h3 id="progressText">0 / 5 complete</h3><div class="bar"><span id="progressBar"></span></div>
+<h3 id="progressText">0 / 5 complete</h3>
+<div class="bar"><span id="progressBar"></span></div>
 <label class="check"><input type="checkbox" class="day"> Day 1 — Create a new outfit from old favourites.</label>
 <label class="check"><input type="checkbox" class="day"> Day 2 — Repair or care for one item.</label>
 <label class="check"><input type="checkbox" class="day"> Day 3 — Explore one second-hand platform.</label>
@@ -156,71 +272,161 @@ footer p{font:10px 'DM Mono';color:#aaa}
 <label class="check"><input type="checkbox" class="day"> Day 5 — Plan a week of no impulse buys.</label>
 </div>
 </section>
+
 <section class="section" id="discover">
-<div class="heading"><div><div class="eyebrow">04 / THE CONSCIOUS DIRECTORY</div><h2>Know where<br><em>to look.</em></h2></div><p class="intro">Useful starting points for exploring resale, brand transparency and circular ways to shop.</p></div>
+<div class="heading">
+<div>
+<div class="eyebrow">04 / THE CONSCIOUS DIRECTORY</div>
+<h2>Know where<br><em>to look.</em></h2>
+</div>
+<p class="intro">Useful starting points for exploring resale, brand transparency and circular ways to shop.</p>
+</div>
 <div class="directory">
-<article><div class="eyebrow">RESALE / COMMUNITY</div><h3>Vinted</h3><p>Buy and sell pre-loved pieces. Search second-hand before buying new and pass on items you no longer wear.</p><a href="https://www.vinted.com/" target="_blank" rel="noopener">EXPLORE ↗</a></article>
-<article><div class="eyebrow">DESIGNER RESALE</div><h3>Vestiaire Collective</h3><p>A marketplace for pre-owned designer fashion, helping existing pieces find a new wardrobe.</p><a href="https://www.vestiairecollective.com/" target="_blank" rel="noopener">EXPLORE ↗</a></article>
-<article><div class="eyebrow">BRAND RESEARCH</div><h3>Good On You</h3><p>Research how fashion brands perform on people, the planet and animal welfare before you buy.</p><a href="https://goodonyou.eco/" target="_blank" rel="noopener">EXPLORE ↗</a></article>
+<article>
+<div class="eyebrow">RESALE / COMMUNITY</div>
+<h3>Vinted</h3>
+<p>Buy and sell pre-loved pieces. Search second-hand before buying new and pass on items you no longer wear.</p>
+<a href="https://www.vinted.com/" target="_blank" rel="noopener">EXPLORE ↗</a>
+</article>
+<article>
+<div class="eyebrow">DESIGNER RESALE</div>
+<h3>Vestiaire Collective</h3>
+<p>A marketplace for pre-owned designer fashion, helping existing pieces find a new wardrobe.</p>
+<a href="https://www.vestiairecollective.com/" target="_blank" rel="noopener">EXPLORE ↗</a>
+</article>
+<article>
+<div class="eyebrow">BRAND RESEARCH</div>
+<h3>Good On You</h3>
+<p>Research how fashion brands perform on people, the planet and animal welfare before you buy.</p>
+<a href="https://goodonyou.eco/" target="_blank" rel="noopener">EXPLORE ↗</a>
+</article>
 </div>
 </section>
+
 <section class="quiz">
 <div class="eyebrow" style="color:var(--lime)">05 / FIND YOUR FASHION POV</div>
-<h2>What's your<br>style instinct?</h2><p>Pick the statement that feels most like you.</p>
+<h2>What's your<br>style instinct?</h2>
+<p>Pick the statement that feels most like you.</p>
 <div class="quiz-options">
 <button onclick="quiz(this,'explorer')">I chase new ideas.</button>
 <button onclick="quiz(this,'editor')">I buy with intention.</button>
 <button onclick="quiz(this,'remixer')">I reinvent what I own.</button>
-</div><div id="quizResult"></div>
+</div>
+<div id="quizResult"></div>
 </section>
 </main>
-<footer><div><div class="brand">RE<b>:</b>WEAR®</div><p>THE NEW RULES OF FASHION. VOL. 01 — 2026</p></div><div class="mono">LESS IMPULSE. MORE POINT OF VIEW. ↗</div></footer>
+
+<footer>
+<div>
+<div class="brand">RE<b>:</b>WEAR®</div>
+<p>THE NEW RULES OF FASHION. VOL. 01 — 2026</p>
+</div>
+<div class="mono">LESS IMPULSE. MORE POINT OF VIEW. ↗</div>
+</footer>
+
 <script>
 const $=id=>document.getElementById(id);
+
 let closet=JSON.parse(localStorage.getItem('rewearCloset')||'[]');
+
 function render(){
 $('count').textContent=closet.length+' pieces';
-$('items').innerHTML=closet.length?closet.map((x,i)=>`<span class="chip">${x.name} · ${x.category} <button onclick="removeItem(${i})">×</button></span>`).join(' '):'Your closet is waiting. Add your first piece.';
+$('items').innerHTML=closet.length
+?closet.map((x,i)=>`<span class="chip">${x.name} · ${x.category} <button onclick="removeItem(${i})">×</button></span>`).join(' ')
+:'Your closet is waiting. Add your first piece.';
 }
+
 function addClothing(){
 let name=$('clothing').value.trim();
 if(!name){$('notice').textContent='Please enter a clothing item.';return;}
 closet.push({name,category:$('category').value});
 localStorage.setItem('rewearCloset',JSON.stringify(closet));
-$('clothing').value='';$('notice').textContent='Added to your digital rail!';render();
+$('clothing').value='';
+$('notice').textContent='Added to your digital rail!';
+render();
 }
-function removeItem(i){closet.splice(i,1);localStorage.setItem('rewearCloset',JSON.stringify(closet));render();}
-function clearCloset(){if(confirm('Clear your digital closet?')){closet=[];localStorage.setItem('rewearCloset','[]');render();}}
+
+function removeItem(i){
+closet.splice(i,1);
+localStorage.setItem('rewearCloset',JSON.stringify(closet));
+render();
+}
+
+function clearCloset(){
+if(confirm('Clear your digital closet?')){
+closet=[];
+localStorage.setItem('rewearCloset','[]');
+render();
+}
+}
+
 document.querySelectorAll('.tab').forEach(b=>b.addEventListener('click',()=>{
 document.querySelectorAll('.tab,.panel').forEach(x=>x.classList.remove('active'));
-b.classList.add('active');$(b.dataset.tab).classList.add('active');
+b.classList.add('active');
+$(b.dataset.tab).classList.add('active');
 }));
+
 const looks={
 effortless:'a relaxed knit, clean sneakers and a roomy tote. Keep the palette tonal.',
 bold:'a graphic layer, unexpected colour and chunky shoes. Mix a statement piece with an old favourite.',
 polished:'a fine knit, tailored layers and understated accessories. Focus on shape and detail.'
 };
+
+/* NEW: VISUAL OUTFIT INSPIRATION */
+const lookImages={
+effortless:'https://images.unsplash.com/photo-1539109136881-3be0616acf4b?auto=format&fit=crop&w=1000&q=85',
+bold:'https://images.unsplash.com/photo-1529139574466-a303027c1d8b?auto=format&fit=crop&w=1000&q=85',
+polished:'https://images.unsplash.com/photo-1485230895905-ec40ba36b9bc?auto=format&fit=crop&w=1000&q=85'
+};
+
 function remix(){
-$('outfitResult').innerHTML='<b>'+ $('base').value+' + '+looks[$('mood').value]+'</b><br><br>Style note: shop your own wardrobe before adding anything new.';
+const mood=$('mood').value;
+const piece=$('base').value;
+
+$('lookImage').src=lookImages[mood];
+$('lookImage').alt='Fashion inspiration for '+mood+' style';
+
+$('outfitText').innerHTML=
+'<b>'+piece+' + '+looks[mood]+'</b>';
 }
+
 function impactCheck(){
 let f=$('frequency').value,a=$('alternative').value,title,msg;
-if(f==='rarely'){title='PAUSE BEFORE YOU PURCHASE';msg='Try borrowing, renting, swapping or styling something you already own.';}
-else if(a==='no'){title='DO A LITTLE MORE RESEARCH';msg='Check your existing wardrobe and look for second-hand options before buying new.';}
-else if(f==='often'){title='GREEN LIGHT — WITH INTENTION';msg='Check quality, fit and brand information before deciding.';}
-else{title='MAKE IT EARN ITS PLACE';msg='Think about cost per wear, versatility and how long it will last.';}
+if(f==='rarely'){
+title='PAUSE BEFORE YOU PURCHASE';
+msg='Try borrowing, renting, swapping or styling something you already own.';
+}
+else if(a==='no'){
+title='DO A LITTLE MORE RESEARCH';
+msg='Check your existing wardrobe and look for second-hand options before buying new.';
+}
+else if(f==='often'){
+title='GREEN LIGHT — WITH INTENTION';
+msg='Check quality, fit and brand information before deciding.';
+}
+else{
+title='MAKE IT EARN ITS PLACE';
+msg='Think about cost per wear, versatility and how long it will last.';
+}
 $('impactResult').innerHTML='<b>'+title+'</b><br><br>'+msg;
 }
+
 const days=[...document.querySelectorAll('.day')];
+
 function progress(){
 let n=days.filter(d=>d.checked).length;
 $('progressText').textContent=n+' / 5 complete';
 $('progressBar').style.width=n*20+'%';
 }
+
 days.forEach((d,i)=>{
 d.checked=localStorage.getItem('rewearDay'+i)==='1';
-d.addEventListener('change',()=>{localStorage.setItem('rewearDay'+i,d.checked?'1':'0');progress();});
+d.addEventListener('change',()=>{
+localStorage.setItem('rewearDay'+i,d.checked?'1':'0');
+progress();
 });
+});
+
 function quiz(btn,type){
 document.querySelectorAll('.quiz-options button').forEach(b=>b.classList.remove('selected'));
 btn.classList.add('selected');
@@ -231,7 +437,9 @@ remixer:'THE REMIXER — You see possibility in what you own. Make outfit repeat
 };
 $('quizResult').textContent=answers[type];
 }
-render();progress();
+
+render();
+progress();
 </script>
 </body>
 </html>
