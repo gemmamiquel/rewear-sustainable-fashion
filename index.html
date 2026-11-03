@@ -1,987 +1,481 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>RE:WEAR — Dress less. Mean more.</title>
-  <meta name="description" content="An independent fashion project about wearing what you own, remixing your wardrobe and making more conscious choices.">
-
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-
-  <style>
-    :root {
-      --cream: #f4f0e7;
-      --black: #171717;
-      --lime: #d7f36a;
-      --red: #f15a45;
-      --blue: #455ee8;
-      --line: rgba(23,23,23,.22);
-      --mono: "DM Mono", monospace;
-      --sans: "DM Sans", sans-serif;
-    }
-
-    * { box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
-    body {
-      margin: 0;
-      background: var(--cream);
-      color: var(--black);
-      font-family: var(--sans);
-    }
-    button, input, select { font: inherit; }
-    button { cursor: pointer; }
-    a { color: inherit; text-decoration: none; }
-
-    .topbar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 20px 5vw;
-      border-bottom: 1px solid var(--line);
-      font-family: var(--mono);
-      font-size: 11px;
-      text-transform: uppercase;
-      letter-spacing: .08em;
-    }
-    .logo { font-weight: 800; font-size: 22px; letter-spacing: -.08em; }
-    .topbar nav { display: flex; gap: 25px; }
-    .topbar nav a:hover { text-decoration: underline; }
-
-    .hero {
-      min-height: 690px;
-      padding: 9vw 8vw 7vw;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      position: relative;
-      overflow: hidden;
-    }
-    .eyebrow, .section-kicker {
-      font: 11px var(--mono);
-      text-transform: uppercase;
-      letter-spacing: .1em;
-    }
-    .hero h1 {
-      font-size: clamp(76px, 14vw, 190px);
-      line-height: .78;
-      letter-spacing: -.105em;
-      text-transform: uppercase;
-      margin: 55px 0;
-      max-width: 1100px;
-      position: relative;
-      z-index: 1;
-    }
-    .hero h1 span { color: var(--red); }
-    .hero-bottom {
-      display: flex;
-      justify-content: space-between;
-      align-items: end;
-      gap: 30px;
-      position: relative;
-      z-index: 1;
-    }
-    .hero-bottom p {
-      font-size: 16px;
-      line-height: 1.5;
-      max-width: 330px;
-    }
-    .hero-sticker {
-      position: absolute;
-      right: 12%;
-      top: 22%;
-      width: 170px;
-      height: 170px;
-      background: var(--lime);
-      border-radius: 50%;
-      display: grid;
-      place-items: center;
-      text-align: center;
-      font: 12px var(--mono);
-      text-transform: uppercase;
-      transform: rotate(12deg);
-      padding: 25px;
-    }
-
-    .button {
-      border: 1px solid var(--black);
-      background: var(--black);
-      color: var(--cream);
-      padding: 14px 20px;
-      font: 11px var(--mono);
-      text-transform: uppercase;
-      letter-spacing: .06em;
-      display: inline-block;
-      transition: .2s;
-    }
-    .button:hover { background: var(--lime); color: var(--black); }
-    .button.light { background: transparent; color: var(--black); }
-    .button.light:hover { background: var(--lime); }
-    .button:disabled { opacity: .45; cursor: wait; }
-
-    .ticker {
-      overflow: hidden;
-      white-space: nowrap;
-      background: var(--lime);
-      padding: 15px 0;
-      font: 13px var(--mono);
-      text-transform: uppercase;
-      border-top: 1px solid var(--black);
-      border-bottom: 1px solid var(--black);
-    }
-    .ticker span { display: inline-block; animation: ticker 28s linear infinite; }
-    @keyframes ticker { to { transform: translateX(-50%); } }
-
-    section { padding: 110px 8vw; border-bottom: 1px solid var(--line); }
-    .section-heading {
-      display: flex;
-      justify-content: space-between;
-      gap: 30px;
-      align-items: start;
-      margin-bottom: 55px;
-    }
-    .section-heading h2 {
-      font-size: clamp(48px, 8vw, 105px);
-      line-height: .85;
-      letter-spacing: -.08em;
-      text-transform: uppercase;
-      margin: 0;
-      max-width: 800px;
-    }
-    .section-heading p { max-width: 260px; line-height: 1.5; font-size: 14px; }
-
-    .manifesto { background: var(--black); color: var(--cream); }
-    .manifesto-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 20px;
-      margin-top: 65px;
-    }
-    .manifesto-card {
-      border-top: 1px solid rgba(244,240,231,.4);
-      padding-top: 20px;
-    }
-    .manifesto-card .number { font: 12px var(--mono); color: var(--lime); }
-    .manifesto-card h3 {
-      font-size: clamp(35px, 5vw, 65px);
-      letter-spacing: -.07em;
-      text-transform: uppercase;
-      margin: 55px 0 15px;
-    }
-    .manifesto-card p { color: #c7c2b9; line-height: 1.6; max-width: 280px; }
-
-    .studio { background: #e9e4d9; }
-    .studio-intro { max-width: 650px; line-height: 1.6; margin-top: -25px; margin-bottom: 55px; }
-    .studio-panel {
-      border: 1px solid var(--black);
-      margin-bottom: 25px;
-      background: var(--cream);
-    }
-    .panel-header {
-      padding: 18px 22px;
-      border-bottom: 1px solid var(--black);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 15px;
-      font: 11px var(--mono);
-      text-transform: uppercase;
-    }
-    .panel-content { padding: 28px; }
-    .closet-form {
-      display: grid;
-      grid-template-columns: 1.3fr 1fr 1fr auto;
-      gap: 12px;
-      align-items: end;
-    }
-    .field label {
-      display: block;
-      font: 10px var(--mono);
-      text-transform: uppercase;
-      margin-bottom: 8px;
-    }
-    .field input, .field select {
-      width: 100%;
-      border: 1px solid var(--black);
-      background: transparent;
-      padding: 13px;
-      border-radius: 0;
-      min-width: 0;
-    }
-    .field input:focus, .field select:focus { outline: 2px solid var(--lime); }
-    .helper {
-      font: 11px var(--mono);
-      color: #68645d;
-      line-height: 1.6;
-      margin-top: 15px;
-    }
-    .status {
-      font: 12px var(--mono);
-      margin-top: 15px;
-      min-height: 18px;
-      line-height: 1.5;
-    }
-    .closet-grid, .outfit-grid {
-      display: grid;
-      grid-template-columns: repeat(4, minmax(0,1fr));
-      gap: 15px;
-      margin-top: 25px;
-    }
-    .closet-item, .outfit-card {
-      border: 1px solid var(--line);
-      background: #fffdf8;
-      min-width: 0;
-    }
-    .closet-item img {
-      display: block;
-      width: 100%;
-      aspect-ratio: 1 / 1;
-      object-fit: cover;
-      background: #e8e3d8;
-    }
-    .item-info { padding: 12px; }
-    .item-info strong { display: block; font-size: 13px; text-transform: uppercase; }
-    .item-info small {
-      display: block;
-      font: 10px var(--mono);
-      color: #68645d;
-      margin-top: 5px;
-      text-transform: uppercase;
-    }
-    .delete-button {
-      margin-top: 12px;
-      border: 0;
-      background: transparent;
-      text-decoration: underline;
-      font: 10px var(--mono);
-      padding: 0;
-    }
-    .empty-state {
-      border: 1px dashed var(--line);
-      padding: 35px 20px;
-      text-align: center;
-      font: 12px var(--mono);
-      color: #68645d;
-      grid-column: 1 / -1;
-    }
-    .remix-controls {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 20px;
-      flex-wrap: wrap;
-    }
-    .remix-controls p { max-width: 480px; line-height: 1.5; font-size: 14px; }
-    .outfit-card img {
-      width: 100%;
-      display: block;
-      aspect-ratio: 3 / 4;
-      object-fit: cover;
-      background: #e8e3d8;
-    }
-    .outfit-card p { padding: 12px; font: 11px var(--mono); text-transform: uppercase; }
-
-    .impact { background: var(--red); }
-    .impact .section-heading h2 { max-width: 750px; }
-    .impact-box { max-width: 700px; border-top: 1px solid var(--black); }
-    .question { padding: 24px 0; border-bottom: 1px solid var(--black); }
-    .question p { font-weight: 700; margin: 0 0 15px; }
-    .choices { display: flex; flex-wrap: wrap; gap: 9px; }
-    .choice {
-      border: 1px solid var(--black);
-      padding: 10px 14px;
-      background: transparent;
-      font: 11px var(--mono);
-    }
-    .choice.selected { background: var(--black); color: var(--cream); }
-    .impact-result {
-      margin-top: 25px;
-      padding: 25px;
-      background: var(--lime);
-      display: none;
-      line-height: 1.5;
-    }
-
-    .reset { background: var(--lime); }
-    .reset-list { max-width: 750px; }
-    .reset-task {
-      display: flex;
-      align-items: center;
-      gap: 15px;
-      padding: 19px 0;
-      border-bottom: 1px solid var(--black);
-      font-size: 17px;
-    }
-    .reset-task input { width: 20px; height: 20px; accent-color: var(--black); }
-    .progress-wrap { height: 8px; background: rgba(23,23,23,.2); margin-top: 25px; }
-    .progress-bar { height: 100%; width: 0; background: var(--black); transition: width .3s; }
-    .progress-label { font: 11px var(--mono); margin-top: 10px; }
-
-    .directory-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 15px;
-    }
-    .directory-card {
-      border: 1px solid var(--black);
-      padding: 25px;
-      min-height: 220px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      transition: .2s;
-    }
-    .directory-card:hover { background: var(--lime); }
-    .directory-card h3 { font-size: 32px; letter-spacing: -.06em; margin: 20px 0 10px; }
-    .directory-card p { font-size: 13px; line-height: 1.5; }
-    .directory-card span { font: 10px var(--mono); text-transform: uppercase; }
-
-    .quiz { background: var(--blue); color: white; }
-    .quiz .section-heading p { color: #e0e4ff; }
-    .quiz-box { max-width: 650px; }
-    .quiz-question { font-size: 24px; line-height: 1.2; margin-bottom: 20px; }
-    .quiz-options { display: grid; gap: 10px; }
-    .quiz-options button {
-      text-align: left;
-      padding: 17px;
-      border: 1px solid white;
-      color: white;
-      background: transparent;
-    }
-    .quiz-options button:hover { background: white; color: var(--blue); }
-    .quiz-result {
-      display: none;
-      background: var(--lime);
-      color: var(--black);
-      padding: 25px;
-      margin-top: 20px;
-    }
-
-    footer {
-      background: var(--black);
-      color: var(--cream);
-      padding: 55px 8vw;
-      display: flex;
-      justify-content: space-between;
-      gap: 30px;
-      flex-wrap: wrap;
-      font: 10px var(--mono);
-      text-transform: uppercase;
-    }
-    footer strong { font: 800 35px var(--sans); letter-spacing: -.08em; }
-
-    @media (max-width: 800px) {
-      .topbar nav { gap: 12px; }
-      .hero { min-height: 600px; }
-      .hero-sticker { width: 115px; height: 115px; right: 8%; top: 25%; font-size: 9px; }
-      .hero-bottom, .section-heading { flex-direction: column; align-items: start; }
-      section { padding: 75px 6vw; }
-      .manifesto-grid, .directory-grid { grid-template-columns: 1fr; }
-      .manifesto-card h3 { margin-top: 30px; }
-      .closet-form { grid-template-columns: 1fr 1fr; }
-      .closet-grid, .outfit-grid { grid-template-columns: repeat(2, minmax(0,1fr)); }
-    }
-    @media (max-width: 480px) {
-      .topbar { padding: 16px 5vw; }
-      .topbar nav { font-size: 9px; gap: 9px; }
-      .logo { font-size: 18px; }
-      .hero { padding: 80px 6vw 55px; min-height: 570px; }
-      .hero h1 { font-size: 19vw; }
-      .hero-sticker { top: 19%; right: 5%; }
-      .closet-form { grid-template-columns: 1fr; }
-      .panel-content { padding: 18px; }
-      .closet-grid, .outfit-grid { gap: 9px; }
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RE:WEAR — Dress less. Mean more.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--cream:#f4f0e7;--black:#171717;--lime:#d7f36a;--red:#f15a45;--blue:#455ee8;--line:rgba(23,23,23,.22);--mono:"DM Mono",monospace;--sans:"DM Sans",sans-serif}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--cream);color:var(--black);font-family:var(--sans)}
+button,input,select{font:inherit}button{cursor:pointer}a{color:inherit;text-decoration:none}
+.topbar{display:flex;justify-content:space-between;align-items:center;padding:20px 5vw;border-bottom:1px solid var(--line);font:11px var(--mono);text-transform:uppercase;letter-spacing:.08em}
+.logo{font:800 22px var(--sans);letter-spacing:-.08em}.topbar nav{display:flex;gap:25px}.topbar nav a:hover{text-decoration:underline}
+.hero{min-height:660px;padding:9vw 8vw 7vw;display:flex;flex-direction:column;justify-content:space-between;position:relative;overflow:hidden}
+.eyebrow,.section-kicker{font:11px var(--mono);text-transform:uppercase;letter-spacing:.1em}
+.hero h1{font-size:clamp(76px,14vw,190px);line-height:.78;letter-spacing:-.105em;text-transform:uppercase;margin:55px 0;max-width:1100px;position:relative;z-index:1}
+.hero h1 span{color:var(--red)}.hero-bottom{display:flex;justify-content:space-between;align-items:end;gap:30px;position:relative;z-index:1}
+.hero-bottom p{font-size:16px;line-height:1.5;max-width:330px}
+.hero-sticker{position:absolute;right:12%;top:22%;width:170px;height:170px;background:var(--lime);border-radius:50%;display:grid;place-items:center;text-align:center;font:12px var(--mono);text-transform:uppercase;transform:rotate(12deg);padding:25px}
+.button{border:1px solid var(--black);background:var(--black);color:var(--cream);padding:14px 20px;font:11px var(--mono);text-transform:uppercase;letter-spacing:.06em;display:inline-block;transition:.2s}
+.button:hover{background:var(--lime);color:var(--black)}.button.light{background:transparent;color:var(--black)}.button:disabled{opacity:.45;cursor:wait}
+.ticker{overflow:hidden;white-space:nowrap;background:var(--lime);padding:15px 0;font:13px var(--mono);text-transform:uppercase;border-block:1px solid var(--black)}
+.ticker span{display:inline-block;animation:ticker 28s linear infinite}@keyframes ticker{to{transform:translateX(-50%)}}
+section{padding:110px 8vw;border-bottom:1px solid var(--line)}
+.section-heading{display:flex;justify-content:space-between;gap:30px;align-items:start;margin-bottom:55px}
+.section-heading h2{font-size:clamp(48px,8vw,105px);line-height:.85;letter-spacing:-.08em;text-transform:uppercase;margin:0;max-width:800px}
+.section-heading p{max-width:260px;line-height:1.5;font-size:14px}
+.manifesto{background:var(--black);color:var(--cream)}.manifesto-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:65px}
+.manifesto-card{border-top:1px solid rgba(244,240,231,.4);padding-top:20px}.manifesto-card .number{font:12px var(--mono);color:var(--lime)}
+.manifesto-card h3{font-size:clamp(35px,5vw,65px);letter-spacing:-.07em;text-transform:uppercase;margin:55px 0 15px}
+.manifesto-card p{color:#c7c2b9;line-height:1.6;max-width:280px}
+.studio{background:#e9e4d9}.studio-intro{max-width:650px;line-height:1.6;margin-top:-25px;margin-bottom:55px}
+.studio-panel{border:1px solid var(--black);margin-bottom:25px;background:var(--cream)}
+.panel-header{padding:18px 22px;border-bottom:1px solid var(--black);display:flex;justify-content:space-between;align-items:center;gap:15px;font:11px var(--mono);text-transform:uppercase}
+.panel-content{padding:28px}.closet-form{display:grid;grid-template-columns:1.3fr 1fr 1fr auto;gap:12px;align-items:end}
+.field label{display:block;font:10px var(--mono);text-transform:uppercase;margin-bottom:8px}
+.field input,.field select{width:100%;border:1px solid var(--black);background:transparent;padding:13px;border-radius:0;min-width:0}
+.field input:focus,.field select:focus{outline:2px solid var(--lime)}
+.helper{font:11px var(--mono);color:#68645d;line-height:1.6;margin-top:15px}
+.status{font:12px var(--mono);margin-top:15px;min-height:18px;line-height:1.5}
+.closet-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:15px;margin-top:25px}
+.closet-item{border:1px solid var(--line);background:#fffdf8;min-width:0}
+.closet-item img{display:block;width:100%;aspect-ratio:1;object-fit:cover;background:#e8e3d8}
+.item-info{padding:12px}.item-info strong{display:block;font-size:13px;text-transform:uppercase}.item-info small{display:block;font:10px var(--mono);color:#68645d;margin-top:5px;text-transform:uppercase}
+.delete-button{margin-top:12px;border:0;background:transparent;text-decoration:underline;font:10px var(--mono);padding:0}
+.empty-state{border:1px dashed var(--line);padding:35px 20px;text-align:center;font:12px var(--mono);color:#68645d;grid-column:1/-1}
+.remix-controls{display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap}.remix-controls p{max-width:480px;line-height:1.5;font-size:14px}
+.outfit-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:15px;margin-top:25px}
+.outfit-card{border:1px solid var(--line);background:#fffdf8;padding:14px;min-width:0}
+.outfit-card h3{font:12px var(--mono);text-transform:uppercase;margin:0 0 12px}
+.outfit-pieces{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.outfit-piece{background:#e8e3d8;min-width:0}.outfit-piece img{width:100%;display:block;aspect-ratio:1;object-fit:cover}
+.outfit-piece span{display:block;padding:7px;font:9px var(--mono);text-transform:uppercase;overflow-wrap:anywhere}
+.impact{background:var(--red)}.impact .section-heading h2{max-width:750px}.impact-box{max-width:700px;border-top:1px solid var(--black)}
+.question{padding:24px 0;border-bottom:1px solid var(--black)}.question p{font-weight:700;margin:0 0 15px}
+.choices{display:flex;flex-wrap:wrap;gap:9px}.choice{border:1px solid var(--black);padding:10px 14px;background:transparent;font:11px var(--mono)}
+.choice.selected{background:var(--black);color:var(--cream)}.impact-result{margin-top:25px;padding:25px;background:var(--lime);display:none;line-height:1.5}
+.reset{background:var(--lime)}.reset-list{max-width:750px}
+.reset-task{display:flex;align-items:center;gap:15px;padding:19px 0;border-bottom:1px solid var(--black);font-size:17px}
+.reset-task input{width:20px;height:20px;accent-color:var(--black)}
+.progress-wrap{height:8px;background:rgba(23,23,23,.2);margin-top:25px}.progress-bar{height:100%;width:0;background:var(--black);transition:width .3s}
+.progress-label{font:11px var(--mono);margin-top:10px}
+.directory-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:15px}
+.directory-card{border:1px solid var(--black);padding:25px;min-height:220px;display:flex;flex-direction:column;justify-content:space-between;transition:.2s}
+.directory-card:hover{background:var(--lime)}.directory-card h3{font-size:32px;letter-spacing:-.06em;margin:20px 0 10px}
+.directory-card p{font-size:13px;line-height:1.5}.directory-card span{font:10px var(--mono);text-transform:uppercase}
+.quiz{background:var(--blue);color:white}.quiz .section-heading p{color:#e0e4ff}.quiz-box{max-width:650px}
+.quiz-question{font-size:24px;line-height:1.2;margin-bottom:20px}.quiz-options{display:grid;gap:10px}
+.quiz-options button{text-align:left;padding:17px;border:1px solid white;color:white;background:transparent}
+.quiz-options button:hover{background:white;color:var(--blue)}.quiz-result{display:none;background:var(--lime);color:var(--black);padding:25px;margin-top:20px}
+footer{background:var(--black);color:var(--cream);padding:55px 8vw;display:flex;justify-content:space-between;gap:30px;flex-wrap:wrap;font:10px var(--mono);text-transform:uppercase}
+footer strong{font:800 35px var(--sans);letter-spacing:-.08em}
+@media(max-width:800px){.topbar nav{gap:12px}.hero{min-height:600px}.hero-sticker{width:115px;height:115px;right:8%;top:25%;font-size:9px}
+.hero-bottom,.section-heading{flex-direction:column;align-items:start}section{padding:75px 6vw}.manifesto-grid,.directory-grid{grid-template-columns:1fr}
+.manifesto-card h3{margin-top:30px}.closet-form{grid-template-columns:1fr 1fr}.closet-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:480px){.topbar{padding:16px 5vw}.topbar nav{font-size:9px;gap:9px}.logo{font-size:18px}
+.hero{padding:80px 6vw 55px;min-height:570px}.hero h1{font-size:19vw}.hero-sticker{top:19%;right:5%}
+.closet-form{grid-template-columns:1fr}.panel-content{padding:18px}.closet-grid{gap:9px}.outfit-grid{grid-template-columns:1fr}}
+</style>
 </head>
-
 <body>
-  <header class="topbar">
-    <a class="logo" href="#">RE:WEAR</a>
-    <nav>
-      <a href="#manifesto">Manifesto</a>
-      <a href="#studio">The Studio</a>
-      <a href="#reset">The Reset</a>
-      <a href="#directory">Directory</a>
-    </nav>
-  </header>
+<header class="topbar">
+  <a class="logo" href="#">RE:WEAR</a>
+  <nav><a href="#manifesto">Manifesto</a><a href="#studio">The Studio</a><a href="#reset">The Reset</a><a href="#directory">Directory</a></nav>
+</header>
 
-  <main>
-    <section class="hero">
-      <div class="eyebrow">An independent fashion project / 2026</div>
-      <div class="hero-sticker">Your wardrobe<br>is already<br>full of ideas.</div>
-      <h1>Dress less.<br>Mean <span>more.</span></h1>
-      <div class="hero-bottom">
-        <p>RE:WEAR is a new way to look at your wardrobe. Less impulse. More imagination. Better use of what you already own.</p>
-        <a class="button" href="#studio">Explore your wardrobe ↘</a>
-      </div>
-    </section>
+<main>
+<section class="hero">
+  <div class="eyebrow">An independent fashion project / 2026</div>
+  <div class="hero-sticker">Your wardrobe<br>is already<br>full of ideas.</div>
+  <h1>Dress less.<br>Mean <span>more.</span></h1>
+  <div class="hero-bottom">
+    <p>RE:WEAR is a new way to look at your wardrobe. Less impulse. More imagination. Better use of what you already own.</p>
+    <a class="button" href="#studio">Explore your wardrobe ↘</a>
+  </div>
+</section>
+<div class="ticker"><span>WEAR WHAT YOU OWN ✳ RE-THINK YOUR WARDROBE ✳ STYLE IS NOT ABOUT MORE ✳ WEAR WHAT YOU OWN ✳ RE-THINK YOUR WARDROBE ✳ STYLE IS NOT ABOUT MORE ✳ </span></div>
 
-    <div class="ticker">
-      <span>WEAR WHAT YOU OWN ✳ RE-THINK YOUR WARDROBE ✳ STYLE IS NOT ABOUT MORE ✳ WEAR WHAT YOU OWN ✳ RE-THINK YOUR WARDROBE ✳ STYLE IS NOT ABOUT MORE ✳ </span>
+<section class="manifesto" id="manifesto">
+  <div class="section-kicker">01 / The manifesto</div>
+  <div class="section-heading"><h2>New style.<br>Same clothes.</h2><p>Fashion doesn't always need a new purchase. Sometimes it needs a new perspective.</p></div>
+  <div class="manifesto-grid">
+    <article class="manifesto-card"><div class="number">01 — THINK</div><h3>Pause.</h3><p>Before buying something new, take a moment. Do you really need it? Could something you already own work instead?</p></article>
+    <article class="manifesto-card"><div class="number">02 — RE-MIX</div><h3>Re-style.</h3><p>Rediscover your wardrobe. Combine familiar pieces in unexpected ways and make old favourites feel new.</p></article>
+    <article class="manifesto-card"><div class="number">03 — REPEAT</div><h3>Repeat.</h3><p>Wearing something again is not boring. It is a small, everyday way to make more conscious choices.</p></article>
+  </div>
+</section>
+
+<section class="studio" id="studio">
+  <div class="section-kicker">02 / The interactive edit</div>
+  <div class="section-heading"><h2>Your style<br>studio.</h2><p>A digital space to rediscover the clothes you already have.</p></div>
+  <p class="studio-intro">Build your digital closet by describing your clothes. RE:WEAR will create a simple visual illustration of each piece, then arrange your wardrobe into new outfit combinations.</p>
+
+  <div class="studio-panel">
+    <div class="panel-header"><span>01 / Digital closet</span><span id="closet-count">0 pieces</span></div>
+    <div class="panel-content">
+      <form id="closet-form" class="closet-form">
+        <div class="field"><label for="item-name">What is the item?</label><input id="item-name" placeholder="e.g. Oversized denim jacket" required maxlength="80"></div>
+        <div class="field"><label for="item-category">Category</label>
+          <select id="item-category" required>
+            <option value="">Choose category</option><option value="Tops">Tops</option><option value="Bottoms">Bottoms</option><option value="Dresses">Dresses</option><option value="Outerwear">Outerwear</option><option value="Shoes">Shoes</option><option value="Accessories">Accessories</option>
+          </select>
+        </div>
+        <div class="field"><label for="item-color">Main colour</label><input id="item-color" placeholder="e.g. Dark blue" required maxlength="40"></div>
+        <button class="button" id="add-item-button" type="submit">Add to closet +</button>
+      </form>
+      <p class="helper">No photo uploads and no paid AI service. Add a description and RE:WEAR will create a simple garment illustration. Your closet is saved in this browser.</p>
+      <div class="status" id="closet-status" role="status" aria-live="polite"></div>
+      <div class="closet-grid" id="closet-grid"><div class="empty-state">YOUR DIGITAL CLOSET IS EMPTY. ADD YOUR FIRST PIECE ABOVE.</div></div>
     </div>
-
-    <section class="manifesto" id="manifesto">
-      <div class="section-kicker">01 / The manifesto</div>
-      <div class="section-heading">
-        <h2>New style.<br>Same clothes.</h2>
-        <p>Fashion doesn't always need a new purchase. Sometimes it needs a new perspective.</p>
-      </div>
-      <div class="manifesto-grid">
-        <article class="manifesto-card">
-          <div class="number">01 — THINK</div>
-          <h3>Pause.</h3>
-          <p>Before buying something new, take a moment. Do you really need it? Could something you already own work instead?</p>
-        </article>
-        <article class="manifesto-card">
-          <div class="number">02 — RE-MIX</div>
-          <h3>Re-style.</h3>
-          <p>Rediscover your wardrobe. Combine familiar pieces in unexpected ways and make old favourites feel new.</p>
-        </article>
-        <article class="manifesto-card">
-          <div class="number">03 — REPEAT</div>
-          <h3>Repeat.</h3>
-          <p>Wearing something again is not boring. It is a small, everyday way to make more conscious choices.</p>
-        </article>
-      </div>
-    </section>
-
-    <section class="studio" id="studio">
-      <div class="section-kicker">02 / The interactive edit</div>
-      <div class="section-heading">
-        <h2>Your style<br>studio.</h2>
-        <p>A digital space to rediscover the clothes you already have.</p>
-      </div>
-      <p class="studio-intro">Build your digital closet by describing your clothes. RE:WEAR will create a visual interpretation of each piece, then use your wardrobe to imagine new outfits.</p>
-
-      <div class="studio-panel">
-        <div class="panel-header">
-          <span>01 / Digital closet</span>
-          <span id="closet-count">0 pieces</span>
-        </div>
-        <div class="panel-content">
-          <form id="closet-form" class="closet-form">
-            <div class="field">
-              <label for="item-name">What is the item?</label>
-              <input id="item-name" name="name" placeholder="e.g. Oversized denim jacket" required maxlength="80">
-            </div>
-            <div class="field">
-              <label for="item-category">Category</label>
-              <select id="item-category" name="category" required>
-                <option value="">Choose category</option>
-                <option value="Tops">Tops</option>
-                <option value="Bottoms">Bottoms</option>
-                <option value="Dresses">Dresses</option>
-                <option value="Outerwear">Outerwear</option>
-                <option value="Shoes">Shoes</option>
-                <option value="Accessories">Accessories</option>
-              </select>
-            </div>
-            <div class="field">
-              <label for="item-color">Main colour</label>
-              <input id="item-color" name="color" placeholder="e.g. Dark blue" required maxlength="40">
-            </div>
-            <button class="button" id="add-item-button" type="submit">Add to closet +</button>
-          </form>
-          <p class="helper">No photo uploads. Just describe your garment. AI will create an illustrative image of it. The image and item are saved in this browser.</p>
-          <div class="status" id="closet-status" role="status" aria-live="polite"></div>
-          <div class="closet-grid" id="closet-grid">
-            <div class="empty-state">YOUR DIGITAL CLOSET IS EMPTY. ADD YOUR FIRST PIECE ABOVE.</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="studio-panel">
-        <div class="panel-header">
-          <span>02 / Style remix</span>
-          <span>AI styling experiment</span>
-        </div>
-        <div class="panel-content">
-          <div class="remix-controls">
-            <p>Turn your own wardrobe into new outfit ideas. Choose at least two pieces and let AI combine them into a look.</p>
-            <button class="button" id="remix-button" type="button">Remix my wardrobe ↗</button>
-          </div>
-          <p class="helper">For the best results, add a mix of tops, bottoms, dresses, shoes and accessories. Generated outfits are creative interpretations, not exact product replicas.</p>
-          <div class="status" id="remix-status" role="status" aria-live="polite"></div>
-          <div class="outfit-grid" id="outfit-grid"></div>
-        </div>
-      </div>
-    </section>
-
-    <section class="impact" id="impact">
-      <div class="section-kicker">03 / Before you buy</div>
-      <div class="section-heading">
-        <h2>The impact<br>check.</h2>
-        <p>A small pause can make a big difference. Think before adding something to your wardrobe.</p>
-      </div>
-      <div class="impact-box">
-        <div class="question">
-          <p>1. How often do you think you would wear this item?</p>
-          <div class="choices" data-question="frequency">
-            <button class="choice" data-value="often">Often</button>
-            <button class="choice" data-value="sometimes">Sometimes</button>
-            <button class="choice" data-value="rarely">Rarely</button>
-          </div>
-        </div>
-        <div class="question">
-          <p>2. Have you checked whether you already own something similar?</p>
-          <div class="choices" data-question="similar">
-            <button class="choice" data-value="yes">Yes</button>
-            <button class="choice" data-value="no">No</button>
-          </div>
-        </div>
-        <div class="question">
-          <p>3. Have you considered buying it second-hand?</p>
-          <div class="choices" data-question="secondhand">
-            <button class="choice" data-value="yes">Yes</button>
-            <button class="choice" data-value="no">No</button>
-          </div>
-        </div>
-        <button class="button" id="impact-button" type="button">Get my reflection ↗</button>
-        <div class="impact-result" id="impact-result"></div>
-      </div>
-    </section>
-
-    <section class="reset" id="reset">
-      <div class="section-kicker">04 / A little challenge</div>
-      <div class="section-heading">
-        <h2>The 5-day<br>wardrobe reset.</h2>
-        <p>Five simple actions to reconnect with the clothes you already own.</p>
-      </div>
-      <div class="reset-list" id="reset-list">
-        <label class="reset-task"><input type="checkbox" data-task="0"> Wear something you have not worn in months.</label>
-        <label class="reset-task"><input type="checkbox" data-task="1"> Create a new outfit using three existing pieces.</label>
-        <label class="reset-task"><input type="checkbox" data-task="2"> Repair or take care of one item you own.</label>
-        <label class="reset-task"><input type="checkbox" data-task="3"> Avoid an unnecessary fashion purchase today.</label>
-        <label class="reset-task"><input type="checkbox" data-task="4"> Share, swap or donate something you no longer use.</label>
-        <div class="progress-wrap"><div class="progress-bar" id="progress-bar"></div></div>
-        <div class="progress-label" id="progress-label">0 / 5 COMPLETED</div>
-      </div>
-    </section>
-
-    <section id="directory">
-      <div class="section-kicker">05 / The conscious directory</div>
-      <div class="section-heading">
-        <h2>Find better<br>alternatives.</h2>
-        <p>When you really need something new, explore platforms and resources that encourage more considered fashion choices.</p>
-      </div>
-      <div class="directory-grid">
-        <a class="directory-card" href="https://www.vinted.com/" target="_blank" rel="noopener noreferrer">
-          <span>01 / Second-hand marketplace</span>
-          <div><h3>Vinted ↗</h3><p>Buy and sell pre-loved clothing and give garments another life.</p></div>
-        </a>
-        <a class="directory-card" href="https://www.vestiairecollective.com/" target="_blank" rel="noopener noreferrer">
-          <span>02 / Pre-loved designer</span>
-          <div><h3>Vestiaire ↗</h3><p>A platform for buying and selling pre-owned designer fashion.</p></div>
-        </a>
-        <a class="directory-card" href="https://goodonyou.eco/" target="_blank" rel="noopener noreferrer">
-          <span>03 / Brand information</span>
-          <div><h3>Good On You ↗</h3><p>Explore brand ratings and information about their impact.</p></div>
-        </a>
-      </div>
-    </section>
-
-    <section class="quiz" id="quiz">
-      <div class="section-kicker">06 / Your style instinct</div>
-      <div class="section-heading">
-        <h2>What kind of<br>re-wearer are you?</h2>
-        <p>A little style personality check. There are no wrong answers.</p>
-      </div>
-      <div class="quiz-box">
-        <div class="quiz-question" id="quiz-question">When you open your wardrobe, what excites you most?</div>
-        <div class="quiz-options" id="quiz-options">
-          <button data-result="explorer">Finding a completely new way to wear something.</button>
-          <button data-result="editor">Having a small collection of pieces I truly love.</button>
-          <button data-result="remixer">Mixing unexpected colours, shapes and styles.</button>
-        </div>
-        <div class="quiz-result" id="quiz-result"></div>
-      </div>
-    </section>
-  </main>
-
-  <footer>
-    <div><strong>RE:WEAR</strong><p>Dress less. Mean more.</p></div>
-    <div>AN INDEPENDENT FASHION PROJECT<br>BY GEMMA MIQUEL · 2026</div>
-  </footer>
-
-  <script>
-    // ------------------------------------------
-    // DIGITAL CLOSET — saved in this browser
-    // ------------------------------------------
-
-    const DB_NAME = "rewearDatabase";
-    const DB_VERSION = 1;
-    const STORE_NAME = "closetItems";
-    let closet = [];
-
-    function openClosetDB() {
-      return new Promise((resolve, reject) => {
-        const request = indexedDB.open(DB_NAME, DB_VERSION);
-
-        request.onupgradeneeded = () => {
-          const db = request.result;
-          if (!db.objectStoreNames.contains(STORE_NAME)) {
-            db.createObjectStore(STORE_NAME, { keyPath: "id" });
-          }
-        };
-
-        request.onsuccess = () => resolve(request.result);
-        request.onerror = () => reject(request.error);
-      });
-    }
-
-    async function getAllItems() {
-      const db = await openClosetDB();
-      return new Promise((resolve, reject) => {
-        const transaction = db.transaction(STORE_NAME, "readonly");
-        const request = transaction.objectStore(STORE_NAME).getAll();
-        request.onsuccess = () => resolve(request.result || []);
-        request.onerror = () => reject(request.error);
-      });
-    }
-
-    async function saveClosetItem(item) {
-      const db = await openClosetDB();
-      return new Promise((resolve, reject) => {
-        const transaction = db.transaction(STORE_NAME, "readwrite");
-        transaction.objectStore(STORE_NAME).put(item);
-        transaction.oncomplete = () => resolve();
-        transaction.onerror = () => reject(transaction.error);
-      });
-    }
-
-    async function deleteClosetItem(id) {
-      const db = await openClosetDB();
-      return new Promise((resolve, reject) => {
-        const transaction = db.transaction(STORE_NAME, "readwrite");
-        transaction.objectStore(STORE_NAME).delete(id);
-        transaction.oncomplete = () => resolve();
-        transaction.onerror = () => reject(transaction.error);
-      });
-    }
-
-    function renderCloset() {
-      const grid = document.getElementById("closet-grid");
-      document.getElementById("closet-count").textContent =
-        `${closet.length} ${closet.length === 1 ? "piece" : "pieces"}`;
-
-      if (!closet.length) {
-        grid.innerHTML = '<div class="empty-state">YOUR DIGITAL CLOSET IS EMPTY. ADD YOUR FIRST PIECE ABOVE.</div>';
-        return;
-      }
-
-      grid.innerHTML = "";
-      closet.forEach(item => {
-        const card = document.createElement("article");
-        card.className = "closet-item";
-
-        const image = document.createElement("img");
-        image.src = item.image;
-        image.alt = `${item.color} ${item.name}`;
-
-        const info = document.createElement("div");
-        info.className = "item-info";
-
-        const name = document.createElement("strong");
-        name.textContent = item.name;
-
-        const details = document.createElement("small");
-        details.textContent = `${item.category} · ${item.color}`;
-
-        const remove = document.createElement("button");
-        remove.className = "delete-button";
-        remove.type = "button";
-        remove.textContent = "REMOVE ITEM";
-        remove.addEventListener("click", async () => {
-          await deleteClosetItem(item.id);
-          closet = closet.filter(piece => piece.id !== item.id);
-          renderCloset();
-        });
-
-        info.append(name, details, remove);
-        card.append(image, info);
-        grid.appendChild(card);
-      });
-    }
-
-    async function loadCloset() {
-      try {
-        closet = await getAllItems();
-        renderCloset();
-      } catch (error) {
-        console.error(error);
-        document.getElementById("closet-status").textContent =
-          "Could not load your closet in this browser.";
-      }
-    }
-
-    const closetForm = document.getElementById("closet-form");
-    const addItemButton = document.getElementById("add-item-button");
-    const closetStatus = document.getElementById("closet-status");
-
-    closetForm.addEventListener("submit", async event => {
-      event.preventDefault();
-
-      const name = document.getElementById("item-name").value.trim();
-      const category = document.getElementById("item-category").value;
-      const color = document.getElementById("item-color").value.trim();
-
-      if (!name || !category || !color) return;
-
-      addItemButton.disabled = true;
-      addItemButton.textContent = "Creating image...";
-      closetStatus.textContent = "AI IS CREATING YOUR GARMENT IMAGE. THIS MAY TAKE A MOMENT.";
-
-      try {
-        const response = await fetch("/api/garment-image", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ name, category, color })
-        });
-
-        const data = await response.json();
-
-        if (!response.ok) {
-          throw new Error(data.error || "Image generation failed.");
-        }
-
-        const item = {
-          id: crypto.randomUUID(),
-          name,
-          category,
-          color,
-          image: `data:image/jpeg;base64,${data.image}`,
-          createdAt: new Date().toISOString()
-        };
-
-        await saveClosetItem(item);
-        closet.push(item);
-        renderCloset();
-        closetForm.reset();
-        closetStatus.textContent = "YOUR NEW PIECE HAS BEEN ADDED TO THE DIGITAL CLOSET.";
-      } catch (error) {
-        console.error(error);
-        closetStatus.textContent = `SORRY — ${error.message}`;
-      } finally {
-        addItemButton.disabled = false;
-        addItemButton.textContent = "Add to closet +";
-      }
-    });
-
-    // ------------------------------------------
-    // STYLE REMIX — uses saved garment images
-    // ------------------------------------------
-
-    function makeOutfitCombinations(items) {
-      const tops = items.filter(item => item.category === "Tops");
-      const bottoms = items.filter(item => item.category === "Bottoms");
-      const dresses = items.filter(item => item.category === "Dresses");
-      const shoes = items.filter(item => item.category === "Shoes");
-      const outerwear = items.filter(item => item.category === "Outerwear");
-      const accessories = items.filter(item => item.category === "Accessories");
-
-      const combinations = [];
-
-      tops.forEach(top => {
-        bottoms.forEach(bottom => {
-          const combo = [top, bottom];
-          if (shoes.length) combo.push(shoes[combinations.length % shoes.length]);
-          if (outerwear.length && combinations.length % 2 === 0) {
-            combo.push(outerwear[combinations.length % outerwear.length]);
-          }
-          if (accessories.length && combinations.length % 2 === 1) {
-            combo.push(accessories[combinations.length % accessories.length]);
-          }
-          combinations.push(combo);
-        });
-      });
-
-      dresses.forEach(dress => {
-        const combo = [dress];
-        if (shoes.length) combo.push(shoes[combinations.length % shoes.length]);
-        if (outerwear.length) combo.push(outerwear[combinations.length % outerwear.length]);
-        if (accessories.length) combo.push(accessories[combinations.length % accessories.length]);
-        combinations.push(combo);
-      });
-
-      // If the wardrobe does not have standard outfit categories,
-      // create combinations from any available pieces.
-      if (!combinations.length && items.length >= 2) {
-        combinations.push(items.slice(0, Math.min(items.length, 4)));
-      }
-
-      return combinations.slice(0, 4);
-    }
-
-    const remixButton = document.getElementById("remix-button");
-    const remixStatus = document.getElementById("remix-status");
-    const outfitGrid = document.getElementById("outfit-grid");
-
-    remixButton.addEventListener("click", async () => {
-      if (closet.length < 2) {
-        remixStatus.textContent = "ADD AT LEAST TWO PIECES TO YOUR DIGITAL CLOSET FIRST.";
-        return;
-      }
-
-      const combinations = makeOutfitCombinations(closet);
-
-      if (!combinations.length) {
-        remixStatus.textContent = "ADD MORE CLOTHES TO CREATE AN OUTFIT.";
-        return;
-      }
-
-      remixButton.disabled = true;
-      remixButton.textContent = "Creating looks...";
-      outfitGrid.innerHTML = "";
-      remixStatus.textContent = "YOUR WARDROBE IS BEING REMIXED. PLEASE WAIT.";
-
-      try {
-        for (let i = 0; i < combinations.length; i++) {
-          remixStatus.textContent = `CREATING OUTFIT ${i + 1} OF ${combinations.length}...`;
-
-          const items = combinations[i].map(item => ({
-            name: item.name,
-            category: item.category,
-            color: item.color,
-            image: item.image
-          }));
-
-          const response = await fetch("/api/style-remix", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ items })
-          });
-
-          const data = await response.json();
-          if (!response.ok) throw new Error(data.error || "Could not create outfit.");
-
-          const card = document.createElement("article");
-          card.className = "outfit-card";
-
-          const image = document.createElement("img");
-          image.src = `data:image/jpeg;base64,${data.image}`;
-          image.alt = "AI-generated outfit using pieces from your digital closet";
-
-          const caption = document.createElement("p");
-          caption.textContent = `LOOK 0${i + 1} / ${combinations[i].map(item => item.name).join(" + ")}`;
-
-          card.append(image, caption);
-          outfitGrid.appendChild(card);
-        }
-
-        remixStatus.textContent = "YOUR NEW OUTFIT IDEAS ARE READY.";
-      } catch (error) {
-        console.error(error);
-        remixStatus.textContent = `SORRY — ${error.message}`;
-      } finally {
-        remixButton.disabled = false;
-        remixButton.textContent = "Remix my wardrobe ↗";
-      }
-    });
-
-    // ------------------------------------------
-    // IMPACT CHECK
-    // ------------------------------------------
-
-    const impactAnswers = {};
-
-    document.querySelectorAll(".choices").forEach(group => {
-      group.querySelectorAll(".choice").forEach(button => {
-        button.addEventListener("click", () => {
-          group.querySelectorAll(".choice").forEach(choice => choice.classList.remove("selected"));
-          button.classList.add("selected");
-          impactAnswers[group.dataset.question] = button.dataset.value;
-        });
-      });
-    });
-
-    document.getElementById("impact-button").addEventListener("click", () => {
-      const result = document.getElementById("impact-result");
-
-      if (!impactAnswers.frequency || !impactAnswers.similar || !impactAnswers.secondhand) {
-        result.style.display = "block";
-        result.textContent = "ANSWER ALL THREE QUESTIONS TO GET YOUR REFLECTION.";
-        return;
-      }
-
-      let score = 0;
-      if (impactAnswers.frequency === "often") score += 2;
-      if (impactAnswers.frequency === "sometimes") score += 1;
-      if (impactAnswers.similar === "yes") score += 1;
-      if (impactAnswers.secondhand === "yes") score += 1;
-
-      let message;
-      if (score >= 4) {
-        message = "GOOD THINKING. This purchase seems considered. Keep checking quality, durability and whether it genuinely fits your wardrobe.";
-      } else if (score >= 2) {
-        message = "TAKE A MOMENT. There may be a good reason to buy it, but consider waiting 24 hours and exploring alternatives first.";
-      } else {
-        message = "MAYBE NOT RIGHT NOW. You might not wear it often, or you may already own something similar. Try remixing your wardrobe first.";
-      }
-
-      result.style.display = "block";
-      result.textContent = message;
-    });
-
-    // ------------------------------------------
-    // 5-DAY RESET — progress saved locally
-    // ------------------------------------------
-
-    const resetCheckboxes = document.querySelectorAll("[data-task]");
-    const RESET_KEY = "rewearResetProgress";
-
-    function updateReset() {
-      const completed = [...resetCheckboxes].filter(box => box.checked).length;
-      document.getElementById("progress-bar").style.width = `${completed * 20}%`;
-      document.getElementById("progress-label").textContent = `${completed} / 5 COMPLETED`;
-      localStorage.setItem(
-        RESET_KEY,
-        JSON.stringify([...resetCheckboxes].map(box => box.checked))
-      );
-    }
-
-    try {
-      const savedProgress = JSON.parse(localStorage.getItem(RESET_KEY) || "[]");
-      resetCheckboxes.forEach((box, index) => {
-        box.checked = savedProgress[index] === true;
-        box.addEventListener("change", updateReset);
-      });
-    } catch (error) {
-      console.warn("Could not restore reset progress", error);
-    }
-    updateReset();
-
-    // ------------------------------------------
-    // STYLE INSTINCT QUIZ
-    // ------------------------------------------
-
-    const quizDescriptions = {
-      explorer: {
-        title: "THE EXPLORER",
-        text: "You love experimentation. Your wardrobe is a playground, and your best style discoveries come from trying something unexpected."
-      },
-      editor: {
-        title: "THE CONSIDERED EDITOR",
-        text: "You believe in quality over quantity. You value pieces that last, make thoughtful choices and know that personal style does not need constant change."
-      },
-      remixer: {
-        title: "THE REMIXER",
-        text: "You see possibilities everywhere. You enjoy unexpected combinations and know that creativity can make familiar clothes feel completely new."
+  </div>
+
+  <div class="studio-panel">
+    <div class="panel-header"><span>02 / Style remix</span><span>Wardrobe combinations</span></div>
+    <div class="panel-content">
+      <div class="remix-controls"><p>Explore combinations made from the clothes in your digital closet. Select at least two pieces and RE:WEAR will arrange them into outfit ideas.</p><button class="button" id="remix-button" type="button">Remix my wardrobe ↗</button></div>
+      <p class="helper">Style Remix creates visual outfit boards from your saved pieces. It does not generate a photograph of a person wearing the clothes.</p>
+      <div class="status" id="remix-status" role="status" aria-live="polite"></div>
+      <div class="outfit-grid" id="outfit-grid"></div>
+    </div>
+  </div>
+</section>
+
+<section class="impact" id="impact">
+  <div class="section-kicker">03 / Before you buy</div>
+  <div class="section-heading"><h2>The impact<br>check.</h2><p>A small pause can make a big difference. Think before adding something to your wardrobe.</p></div>
+  <div class="impact-box">
+    <div class="question"><p>1. How often do you think you would wear this item?</p><div class="choices" data-question="frequency"><button class="choice" data-value="often">Often</button><button class="choice" data-value="sometimes">Sometimes</button><button class="choice" data-value="rarely">Rarely</button></div></div>
+    <div class="question"><p>2. Have you checked whether you already own something similar?</p><div class="choices" data-question="similar"><button class="choice" data-value="yes">Yes</button><button class="choice" data-value="no">No</button></div></div>
+    <div class="question"><p>3. Have you considered buying it second-hand?</p><div class="choices" data-question="secondhand"><button class="choice" data-value="yes">Yes</button><button class="choice" data-value="no">No</button></div></div>
+    <button class="button" id="impact-button" type="button">Get my reflection ↗</button><div class="impact-result" id="impact-result"></div>
+  </div>
+</section>
+
+<section class="reset" id="reset">
+  <div class="section-kicker">04 / A little challenge</div>
+  <div class="section-heading"><h2>The 5-day<br>wardrobe reset.</h2><p>Five simple actions to reconnect with the clothes you already own.</p></div>
+  <div class="reset-list" id="reset-list">
+    <label class="reset-task"><input type="checkbox" data-task="0"> Wear something you have not worn in months.</label>
+    <label class="reset-task"><input type="checkbox" data-task="1"> Create a new outfit using three existing pieces.</label>
+    <label class="reset-task"><input type="checkbox" data-task="2"> Repair or take care of one item you own.</label>
+    <label class="reset-task"><input type="checkbox" data-task="3"> Avoid an unnecessary fashion purchase today.</label>
+    <label class="reset-task"><input type="checkbox" data-task="4"> Share, swap or donate something you no longer use.</label>
+    <div class="progress-wrap"><div class="progress-bar" id="progress-bar"></div></div><div class="progress-label" id="progress-label">0 / 5 COMPLETED</div>
+  </div>
+</section>
+
+<section id="directory">
+  <div class="section-kicker">05 / The conscious directory</div>
+  <div class="section-heading"><h2>Find better<br>alternatives.</h2><p>When you really need something new, explore platforms and resources that encourage more considered fashion choices.</p></div>
+  <div class="directory-grid">
+    <a class="directory-card" href="https://www.vinted.com/" target="_blank" rel="noopener noreferrer"><span>01 / Second-hand marketplace</span><div><h3>Vinted ↗</h3><p>Buy and sell pre-loved clothing and give garments another life.</p></div></a>
+    <a class="directory-card" href="https://www.vestiairecollective.com/" target="_blank" rel="noopener noreferrer"><span>02 / Pre-loved designer</span><div><h3>Vestiaire ↗</h3><p>A platform for buying and selling pre-owned designer fashion.</p></div></a>
+    <a class="directory-card" href="https://goodonyou.eco/" target="_blank" rel="noopener noreferrer"><span>03 / Brand information</span><div><h3>Good On You ↗</h3><p>Explore brand ratings and information about their impact.</p></div></a>
+  </div>
+</section>
+
+<section class="quiz" id="quiz">
+  <div class="section-kicker">06 / Your style instinct</div>
+  <div class="section-heading"><h2>What kind of<br>re-wearer are you?</h2><p>A little style personality check. There are no wrong answers.</p></div>
+  <div class="quiz-box">
+    <div class="quiz-question">When you open your wardrobe, what excites you most?</div>
+    <div class="quiz-options" id="quiz-options">
+      <button data-result="explorer">Finding a completely new way to wear something.</button>
+      <button data-result="editor">Having a small collection of pieces I truly love.</button>
+      <button data-result="remixer">Mixing unexpected colours, shapes and styles.</button>
+    </div>
+    <div class="quiz-result" id="quiz-result"></div>
+  </div>
+</section>
+</main>
+
+<footer><div><strong>RE:WEAR</strong><p>Dress less. Mean more.</p></div><div>AN INDEPENDENT FASHION PROJECT<br>BY GEMMA MIQUEL · 2026</div></footer>
+
+<script>
+/* DIGITAL CLOSET: IndexedDB keeps the user's items and illustrations in this browser. */
+const DB_NAME = "rewearDatabase";
+const STORE_NAME = "closetItems";
+let closet = [];
+
+function openDB() {
+  return new Promise((resolve, reject) => {
+    const request = indexedDB.open(DB_NAME, 1);
+    request.onupgradeneeded = () => {
+      if (!request.result.objectStoreNames.contains(STORE_NAME)) {
+        request.result.createObjectStore(STORE_NAME, { keyPath: "id" });
       }
     };
+    request.onsuccess = () => resolve(request.result);
+    request.onerror = () => reject(request.error);
+  });
+}
+async function getItems() {
+  const db = await openDB();
+  return new Promise((resolve, reject) => {
+    const request = db.transaction(STORE_NAME, "readonly").objectStore(STORE_NAME).getAll();
+    request.onsuccess = () => resolve(request.result || []);
+    request.onerror = () => reject(request.error);
+  });
+}
+async function putItem(item) {
+  const db = await openDB();
+  return new Promise((resolve, reject) => {
+    const tx = db.transaction(STORE_NAME, "readwrite");
+    tx.objectStore(STORE_NAME).put(item);
+    tx.oncomplete = resolve;
+    tx.onerror = () => reject(tx.error);
+  });
+}
+async function removeItem(id) {
+  const db = await openDB();
+  return new Promise((resolve, reject) => {
+    const tx = db.transaction(STORE_NAME, "readwrite");
+    tx.objectStore(STORE_NAME).delete(id);
+    tx.oncomplete = resolve;
+    tx.onerror = () => reject(tx.error);
+  });
+}
 
-    document.querySelectorAll("#quiz-options button").forEach(button => {
-      button.addEventListener("click", () => {
-        const result = quizDescriptions[button.dataset.result];
-        const resultBox = document.getElementById("quiz-result");
-        resultBox.style.display = "block";
-        resultBox.innerHTML = `<strong>${result.title}</strong><p>${result.text}</p>`;
-      });
+/* Creates a simple SVG garment illustration from the user's description. */
+function makeGarmentIllustration(item) {
+  const safeColor = item.color.toLowerCase();
+  const colorMap = {
+    black:"#222222", white:"#f8f6ef", cream:"#e9dfc8", beige:"#c8b99d",
+    brown:"#80583e", dark:"#343b48", "dark blue":"#263d68", blue:"#526f9b",
+    navy:"#24334e", red:"#c84b3e", pink:"#df9eae", green:"#607d55",
+    olive:"#77784a", grey:"#929292", gray:"#929292", yellow:"#e1c44e",
+    orange:"#d77a3c", purple:"#82648e"
+  };
+  let fill = colorMap[safeColor] || colorMap[Object.keys(colorMap).find(k => safeColor.includes(k))] || "#8b8275";
+  const category = item.category;
+  let shape = "";
+  if (category === "Tops" || category === "Outerwear") {
+    shape = `<path d="M105 92 L155 58 L190 78 L225 58 L275 92 L250 145 L228 132 L228 285 L152 285 L152 132 L130 145 Z" fill="${fill}" stroke="#171717" stroke-width="5" stroke-linejoin="round"/><path d="M155 60 Q190 115 225 60" fill="none" stroke="#171717" stroke-width="4"/>`;
+    if (category === "Outerwear") shape += `<path d="M190 82 L190 285" stroke="#171717" stroke-width="4"/><circle cx="202" cy="155" r="4" fill="#171717"/><circle cx="202" cy="190" r="4" fill="#171717"/>`;
+  } else if (category === "Bottoms") {
+    shape = `<path d="M125 65 L255 65 L242 285 L198 285 L190 165 L182 285 L138 285 Z" fill="${fill}" stroke="#171717" stroke-width="5" stroke-linejoin="round"/><path d="M125 90 L255 90" stroke="#171717" stroke-width="4"/>`;
+  } else if (category === "Dresses") {
+    shape = `<path d="M165 55 L215 55 L230 105 L275 285 L105 285 L150 105 Z" fill="${fill}" stroke="#171717" stroke-width="5" stroke-linejoin="round"/><path d="M150 105 Q190 135 230 105" fill="none" stroke="#171717" stroke-width="4"/>`;
+  } else if (category === "Shoes") {
+    shape = `<path d="M95 205 Q140 205 165 160 L190 185 Q215 220 270 220 Q285 225 280 255 L95 255 Q75 245 95 205Z" fill="${fill}" stroke="#171717" stroke-width="5"/><path d="M95 255 L280 255" stroke="#171717" stroke-width="5"/>`;
+  } else {
+    shape = `<path d="M190 55 C145 55 105 105 125 155 C145 205 235 205 255 155 C275 105 235 55 190 55Z" fill="${fill}" stroke="#171717" stroke-width="5"/><path d="M125 155 Q190 185 255 155" fill="none" stroke="#171717" stroke-width="4"/>`;
+  }
+  const label = `${item.name} / ${item.color}`;
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="380" height="380" viewBox="0 0 380 380">
+    <rect width="380" height="380" fill="#e9e4d9"/>
+    <circle cx="300" cy="75" r="42" fill="#d7f36a"/>
+    ${shape}
+    <path d="M25 320 H355" stroke="#171717" stroke-opacity=".25"/>
+    <text x="25" y="345" font-family="Arial,sans-serif" font-size="13" font-weight="bold" fill="#171717">${escapeXml(label.slice(0,38))}</text>
+    <text x="25" y="365" font-family="Arial,sans-serif" font-size="10" fill="#555">${escapeXml(item.category.toUpperCase())}</text>
+  </svg>`;
+  return "data:image/svg+xml;charset=utf-8," + encodeURIComponent(svg);
+}
+function escapeXml(value) {
+  return String(value).replace(/[<>&'"]/g, char => ({"<":"&lt;",">":"&gt;","&":"&amp;","'":"&apos;",'"':"&quot;"}[char]));
+}
+
+function renderCloset() {
+  const grid = document.getElementById("closet-grid");
+  document.getElementById("closet-count").textContent = `${closet.length} ${closet.length === 1 ? "piece" : "pieces"}`;
+  grid.innerHTML = "";
+  if (!closet.length) {
+    grid.innerHTML = '<div class="empty-state">YOUR DIGITAL CLOSET IS EMPTY. ADD YOUR FIRST PIECE ABOVE.</div>';
+    return;
+  }
+  closet.forEach(item => {
+    const card = document.createElement("article");
+    card.className = "closet-item";
+    const img = document.createElement("img");
+    img.src = item.image;
+    img.alt = `${item.color} ${item.name}`;
+    const info = document.createElement("div");
+    info.className = "item-info";
+    const title = document.createElement("strong");
+    title.textContent = item.name;
+    const details = document.createElement("small");
+    details.textContent = `${item.category} · ${item.color}`;
+    const remove = document.createElement("button");
+    remove.className = "delete-button";
+    remove.textContent = "REMOVE ITEM";
+    remove.type = "button";
+    remove.addEventListener("click", async () => {
+      await removeItem(item.id);
+      closet = closet.filter(piece => piece.id !== item.id);
+      renderCloset();
     });
+    info.append(title, details, remove);
+    card.append(img, info);
+    grid.appendChild(card);
+  });
+}
+document.getElementById("closet-form").addEventListener("submit", async event => {
+  event.preventDefault();
+  const name = document.getElementById("item-name").value.trim();
+  const category = document.getElementById("item-category").value;
+  const color = document.getElementById("item-color").value.trim();
+  if (!name || !category || !color) return;
+  const button = document.getElementById("add-item-button");
+  const status = document.getElementById("closet-status");
+  button.disabled = true;
+  button.textContent = "Adding item...";
+  status.textContent = "CREATING YOUR GARMENT ILLUSTRATION...";
+  try {
+    const item = { id: (crypto.randomUUID ? crypto.randomUUID() : String(Date.now() + Math.random())), name, category, color, image: "" };
+    item.image = makeGarmentIllustration(item);
+    await putItem(item);
+    closet.push(item);
+    renderCloset();
+    event.target.reset();
+    status.textContent = "YOUR PIECE HAS BEEN ADDED TO THE DIGITAL CLOSET.";
+  } catch (error) {
+    console.error(error);
+    status.textContent = "SORRY — THIS ITEM COULD NOT BE SAVED IN YOUR BROWSER.";
+  } finally {
+    button.disabled = false;
+    button.textContent = "Add to closet +";
+  }
+});
 
-    // Start the site by loading the saved closet.
-    loadCloset();
-  </script>
+/* STYLE REMIX: local outfit boards made from the saved wardrobe illustrations. */
+function createCombinations(items) {
+  const tops = items.filter(x => x.category === "Tops");
+  const bottoms = items.filter(x => x.category === "Bottoms");
+  const dresses = items.filter(x => x.category === "Dresses");
+  const shoes = items.filter(x => x.category === "Shoes");
+  const outerwear = items.filter(x => x.category === "Outerwear");
+  const accessories = items.filter(x => x.category === "Accessories");
+  const looks = [];
+  tops.forEach(top => bottoms.forEach(bottom => {
+    const n = looks.length;
+    const look = [top, bottom];
+    if (shoes.length) look.push(shoes[n % shoes.length]);
+    if (outerwear.length && n % 2 === 0) look.push(outerwear[n % outerwear.length]);
+    else if (accessories.length) look.push(accessories[n % accessories.length]);
+    looks.push(look);
+  }));
+  dresses.forEach(dress => {
+    const n = looks.length;
+    const look = [dress];
+    if (shoes.length) look.push(shoes[n % shoes.length]);
+    if (outerwear.length) look.push(outerwear[n % outerwear.length]);
+    else if (accessories.length) look.push(accessories[n % accessories.length]);
+    looks.push(look);
+  });
+  if (!looks.length && items.length >= 2) {
+    for (let i = 0; i < items.length - 1; i++) looks.push([items[i], items[i + 1]]);
+  }
+  return looks.slice(0, 4);
+}
+document.getElementById("remix-button").addEventListener("click", () => {
+  const status = document.getElementById("remix-status");
+  const grid = document.getElementById("outfit-grid");
+  grid.innerHTML = "";
+  if (closet.length < 2) {
+    status.textContent = "ADD AT LEAST TWO PIECES TO YOUR DIGITAL CLOSET FIRST.";
+    return;
+  }
+  const looks = createCombinations(closet);
+  if (!looks.length) {
+    status.textContent = "ADD MORE PIECES TO CREATE OUTFIT IDEAS.";
+    return;
+  }
+  looks.forEach((look, index) => {
+    const card = document.createElement("article");
+    card.className = "outfit-card";
+    const title = document.createElement("h3");
+    title.textContent = `LOOK 0${index + 1} / ${look.length} PIECES`;
+    const pieces = document.createElement("div");
+    pieces.className = "outfit-pieces";
+    look.forEach(item => {
+      const piece = document.createElement("div");
+      piece.className = "outfit-piece";
+      const img = document.createElement("img");
+      img.src = item.image;
+      img.alt = item.name;
+      const caption = document.createElement("span");
+      caption.textContent = `${item.name} · ${item.color}`;
+      piece.append(img, caption);
+      pieces.appendChild(piece);
+    });
+    card.append(title, pieces);
+    grid.appendChild(card);
+  });
+  status.textContent = `${looks.length} OUTFIT IDEAS CREATED FROM YOUR OWN WARDROBE.`;
+});
+
+/* IMPACT CHECK */
+const impactAnswers = {};
+document.querySelectorAll(".choices").forEach(group => {
+  group.querySelectorAll(".choice").forEach(button => button.addEventListener("click", () => {
+    group.querySelectorAll(".choice").forEach(choice => choice.classList.remove("selected"));
+    button.classList.add("selected");
+    impactAnswers[group.dataset.question] = button.dataset.value;
+  }));
+});
+document.getElementById("impact-button").addEventListener("click", () => {
+  const box = document.getElementById("impact-result");
+  if (!impactAnswers.frequency || !impactAnswers.similar || !impactAnswers.secondhand) {
+    box.style.display = "block";
+    box.textContent = "ANSWER ALL THREE QUESTIONS TO GET YOUR REFLECTION.";
+    return;
+  }
+  let score = 0;
+  if (impactAnswers.frequency === "often") score += 2;
+  if (impactAnswers.frequency === "sometimes") score += 1;
+  if (impactAnswers.similar === "yes") score += 1;
+  if (impactAnswers.secondhand === "yes") score += 1;
+  box.style.display = "block";
+  box.textContent = score >= 4
+    ? "GOOD THINKING. This purchase seems considered. Keep checking quality, durability and whether it genuinely fits your wardrobe."
+    : score >= 2
+      ? "TAKE A MOMENT. Consider waiting 24 hours and exploring alternatives before making a decision."
+      : "MAYBE NOT RIGHT NOW. You might not wear it often, or you may already own something similar. Try remixing your wardrobe first.";
+});
+
+/* 5-DAY RESET */
+const resetBoxes = [...document.querySelectorAll("[data-task]")];
+function updateReset() {
+  const completed = resetBoxes.filter(box => box.checked).length;
+  document.getElementById("progress-bar").style.width = `${completed * 20}%`;
+  document.getElementById("progress-label").textContent = `${completed} / 5 COMPLETED`;
+  localStorage.setItem("rewearResetProgress", JSON.stringify(resetBoxes.map(box => box.checked)));
+}
+try {
+  const saved = JSON.parse(localStorage.getItem("rewearResetProgress") || "[]");
+  resetBoxes.forEach((box, index) => { box.checked = saved[index] === true; box.addEventListener("change", updateReset); });
+} catch (error) {
+  resetBoxes.forEach(box => box.addEventListener("change", updateReset));
+}
+updateReset();
+
+/* STYLE PERSONALITY QUIZ */
+const quizResults = {
+  explorer: ["THE EXPLORER", "You love experimentation. Your wardrobe is a playground, and your best style discoveries come from trying something unexpected."],
+  editor: ["THE CONSIDERED EDITOR", "You believe in quality over quantity. You value pieces that last and know that personal style does not need constant change."],
+  remixer: ["THE REMIXER", "You see possibilities everywhere. You enjoy unexpected combinations and know that creativity can make familiar clothes feel new."]
+};
+document.querySelectorAll("#quiz-options button").forEach(button => button.addEventListener("click", () => {
+  const result = quizResults[button.dataset.result];
+  const box = document.getElementById("quiz-result");
+  box.style.display = "block";
+  box.innerHTML = `<strong>${result[0]}</strong><p>${result[1]}</p>`;
+}));
+
+/* Load the saved closet when the page opens. */
+(async function init() {
+  try {
+    closet = await getItems();
+    renderCloset();
+  } catch (error) {
+    console.error(error);
+    document.getElementById("closet-status").textContent = "YOUR BROWSER COULD NOT OPEN LOCAL STORAGE FOR THE DIGITAL CLOSET.";
+  }
+})();
+</script>
 </body>
 </html>
