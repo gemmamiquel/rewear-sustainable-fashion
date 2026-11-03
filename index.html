@@ -3,584 +3,646 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>RE:WEAR — Dress Less. Mean More.</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
-
 <style>
-:root {
- --red:#f04432;
- --blue:#2448ff;
- --lime:#d6ff3f;
- --ink:#11110f;
- --paper:#f4f1e9;
- --white:#fffefa;
- --line:#d5d1c8;
- --muted:#77766f;
-}
-*{box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{margin:0;background:var(--paper);color:var(--ink);font-family:'DM Sans',sans-serif}
-a{color:inherit;text-decoration:none}
-button,input,select{font:inherit}
-.mono,.eyebrow{font-family:'DM Mono',monospace;text-transform:uppercase;letter-spacing:.12em;font-size:10px}
-.top{background:var(--lime);padding:9px 5vw;display:flex;justify-content:space-between;font:10px 'DM Mono';letter-spacing:.12em}
-.nav{height:76px;padding:0 5vw;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line);position:sticky;top:0;background:var(--paper);z-index:20}
-.brand{font:700 28px 'Space Grotesk';letter-spacing:-2px}
-.brand b,.footlogo b{color:var(--red)}
-.navlinks{display:flex;gap:25px;font:600 11px 'DM Mono';text-transform:uppercase}
-.navlinks a:hover{color:var(--red)}
-.btn{display:inline-block;border:0;background:var(--ink);color:white;padding:14px 19px;font:600 11px 'DM Mono';cursor:pointer;transition:.2s}
-.btn:hover{background:var(--red);transform:translateY(-2px)}
-.hero{padding:54px 5vw 70px;display:grid;grid-template-columns:1.05fr .95fr;gap:4vw;align-items:center}
-.hero h1{font:700 clamp(65px,10vw,145px)/.79 'Space Grotesk';letter-spacing:-.105em;margin:25px 0 28px;text-transform:uppercase}
-.hero h1 .outline{color:transparent;-webkit-text-stroke:1.5px var(--ink)}
-.hero h1 .red{color:var(--red)}
-.hero-copy{font-size:15px;line-height:1.7;max-width:390px;color:#56554f}
-.hero-actions{display:flex;align-items:center;gap:20px;margin-top:28px}
-.under{font:600 11px 'DM Mono';border-bottom:1px solid;padding-bottom:5px}
-.hero-art{height:560px;position:relative;background:var(--blue);overflow:hidden}
-.hero-art img{width:100%;height:100%;object-fit:cover;filter:grayscale(1);mix-blend-mode:screen}
-.sticker{position:absolute;right:18px;top:18px;background:var(--lime);width:105px;height:105px;border-radius:50%;display:grid;place-items:center;text-align:center;font:700 13px/1.1 'Space Grotesk';transform:rotate(12deg)}
-.art-caption{position:absolute;bottom:0;left:0;background:var(--red);color:white;padding:14px 18px;font:10px 'DM Mono';letter-spacing:.1em}
-.ticker{background:var(--red);color:white;padding:15px 0;white-space:nowrap;overflow:hidden;font:12px 'DM Mono';letter-spacing:.13em}
-.ticker span{padding:0 25px}
-.wrap{padding:85px 5vw;max-width:1500px;margin:auto}
-.sectiontop{display:flex;justify-content:space-between;align-items:end;gap:25px;margin-bottom:34px}
-.sectiontop h2{font:700 clamp(42px,6vw,76px)/.9 'Space Grotesk';letter-spacing:-.08em;text-transform:uppercase;margin:12px 0 0}
-.sectiontop h2 em{font-family:Georgia,serif;font-weight:400;text-transform:none;letter-spacing:-.06em}
-.intro{max-width:330px;font-size:13px;line-height:1.7;color:var(--muted)}
-.manifesto{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
-.manifesto article{padding:25px;min-height:220px;border:1px solid var(--ink);display:flex;flex-direction:column;justify-content:space-between}
-.manifesto article:nth-child(2){background:var(--lime)}
-.manifesto article:nth-child(3){background:var(--blue);color:white}
-.num{font:11px 'DM Mono'}
-.manifesto h3{font:600 29px 'Space Grotesk';letter-spacing:-.06em;margin:35px 0 8px}
-.manifesto p{font-size:12px;line-height:1.6}
-.studio{background:var(--ink);color:var(--paper);padding:85px 5vw}
-.studio-inner{max-width:1300px;margin:auto}
-.studio .intro{color:#aaa99f}
-.tabs{display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap}
-.tab{background:transparent;border:1px solid #66665e;color:var(--paper);padding:12px 16px;font:10px 'DM Mono';cursor:pointer}
-.tab.active{background:var(--lime);color:var(--ink);border-color:var(--lime)}
-.panel{display:none;background:var(--paper);color:var(--ink);padding:30px;min-height:300px}
-.panel.active{display:block}
-.panelgrid{display:grid;grid-template-columns:1fr 1fr;gap:35px}
-.panel h3{font:600 32px 'Space Grotesk';letter-spacing:-.06em;margin:5px 0 8px}
-.panel p{font-size:13px;color:var(--muted);line-height:1.6}
-.field{margin:18px 0}
-.field label{display:block;font:10px 'DM Mono';letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px}
-.field input,.field select{width:100%;padding:13px;border:1px solid #c9c6bd;background:white;color:var(--ink)}
-.notice{padding:15px;background:var(--lime);font-size:13px;margin-top:15px;display:none}
-.closet-list{display:flex;gap:8px;flex-wrap:wrap;margin-top:15px}
-.chip{background:#e9e6dc;padding:8px 11px;font-size:11px}
-.empty{padding:20px;border:1px dashed #aaa;font-size:12px;color:var(--muted)}
-.wardrobe-choice{display:inline-flex;align-items:center;gap:7px;background:#e9e6dc;padding:9px 11px;margin:0 6px 7px 0;font-size:11px}
-.wardrobe-choice input{accent-color:var(--red)}
+@import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700;800&display=swap');
 
-/* PERSONALIZED STYLE REMIX */
-.look-result{background:#e8e5dc;padding:22px;min-height:390px}
-.look-copy{padding:15px 4px 5px;font-size:13px;line-height:1.7}
-.look-copy strong{font:600 24px 'Space Grotesk';display:block;margin-bottom:12px}
-.look-copy ul{padding-left:20px}
-.look-copy li{margin-bottom:7px}
-.look-placeholder{min-height:350px;display:grid;place-content:center;text-align:center;font:600 22px 'Space Grotesk';line-height:1.25}
-.look-placeholder span{font:12px 'DM Sans';color:var(--muted);margin-top:12px}
-.outfit-heading{font:10px 'DM Mono';letter-spacing:.14em;text-transform:uppercase;margin-bottom:15px}
-.outfit-composition{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
-.outfit-piece{min-height:145px;padding:20px 12px;background:var(--white);border:1px solid #d5d1c8;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;position:relative;overflow:hidden}
-.outfit-piece:nth-child(3n+2){background:var(--lime)}
-.outfit-piece:nth-child(3n){background:#dce1ff}
-.piece-icon{font-size:39px;margin-bottom:12px}
-.outfit-piece strong{font:600 13px 'Space Grotesk';text-transform:uppercase;overflow-wrap:anywhere}
-.outfit-piece span{font:9px 'DM Mono';letter-spacing:.1em;text-transform:uppercase;margin-top:7px;color:#666}
-.outfit-mood{background:var(--ink);color:var(--paper);padding:15px;margin-top:14px}
-.outfit-mood strong{font:600 18px 'Space Grotesk';display:block;margin-bottom:6px}
-.outfit-mood p{font-size:12px;line-height:1.6;color:#ddd;margin:0}
-.outfit-disclaimer{font-size:10px;color:var(--muted);line-height:1.5;margin-top:15px}
-.challenge{background:var(--lime)}
-.challengebox{background:var(--ink);color:white;padding:28px;max-width:680px;margin-top:30px}
-.challengebox h3{font:600 30px 'Space Grotesk';margin:0}
-.check{display:flex;gap:12px;margin:15px 0;font-size:13px}
-.check input{accent-color:var(--red);width:16px;height:16px}
-.bar{height:7px;background:#555;margin:20px 0}
-.bar span{display:block;height:100%;width:0;background:var(--red);transition:.25s}
-.directory{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
-.directory article{border:1px solid var(--ink);padding:23px;background:var(--white)}
-.directory .tag{font:10px 'DM Mono';color:var(--red)}
-.directory h3{font:600 27px 'Space Grotesk';margin:13px 0 8px}
-.directory p{font-size:12px;line-height:1.6;color:var(--muted)}
-.directory a{font:10px 'DM Mono';border-bottom:1px solid;padding-bottom:4px;display:inline-block;margin-top:8px}
-.quiz{background:var(--blue);color:white;text-align:center;padding:80px 5vw}
-.quiz h2{font:700 clamp(40px,6vw,70px)/.95 'Space Grotesk';letter-spacing:-.08em;text-transform:uppercase}
-.quiz-options{display:flex;justify-content:center;gap:9px;flex-wrap:wrap;margin:25px}
-.quiz-options button{background:transparent;color:white;border:1px solid white;padding:13px 16px;cursor:pointer;font-size:12px}
-.quiz-options button.selected{background:var(--lime);color:var(--ink);border-color:var(--lime)}
-#quizResult{font:italic 23px Georgia;min-height:32px}
-.footer{background:var(--ink);color:white;padding:38px 5vw;display:flex;justify-content:space-between;align-items:center}
-.footer p{font:10px 'DM Mono';color:#aaa}
-.footlogo{font:700 25px 'Space Grotesk'}
-@media(max-width:760px){
-.nav{height:65px}.navlinks{display:none}
-.hero{grid-template-columns:1fr;padding:40px 5vw}
-.hero-art{height:380px}
-.sectiontop{display:block}
-.manifesto,.directory,.panelgrid{grid-template-columns:1fr}
-.wrap,.studio{padding:65px 5vw}
-.footer{display:block}.footer p{margin-top:12px}
-.outfit-composition{grid-template-columns:repeat(2,minmax(0,1fr))}
+:root{
+  --cream:#f4f0e7;--black:#171717;--lime:#d7f36a;
+  --red:#f15a45;--blue:#455ee8;--line:rgba(23,23,23,.2);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--cream);color:var(--black);font-family:'DM Sans',sans-serif}
+button,input,select{font:inherit}
+button{cursor:pointer}
+a{color:inherit;text-decoration:none}
+.mono{font-family:'DM Mono',monospace;text-transform:uppercase;font-size:11px;letter-spacing:1px}
+
+nav{display:flex;justify-content:space-between;align-items:center;padding:22px 5%;border-bottom:1px solid var(--line)}
+.logo{font-size:25px;font-weight:800;letter-spacing:-2px}
+.logo b,.footlogo b{color:var(--red)}
+.nav-links{display:flex;gap:22px;font-size:11px;text-transform:uppercase;font-weight:700}
+.nav-links a:hover{color:var(--blue)}
+
+.hero{padding:100px 7% 75px;min-height:540px;display:flex;flex-direction:column;justify-content:center}
+.hero-label{margin-bottom:25px}
+.hero h1{font-size:clamp(65px,12vw,145px);line-height:.83;letter-spacing:-8px;font-weight:800}
+.hero h1 span{color:var(--red)}
+.hero-bottom{display:flex;justify-content:space-between;align-items:end;margin-top:50px;gap:25px}
+.hero-bottom p{max-width:390px;line-height:1.7;font-size:14px}
+.hero-stamp{background:var(--lime);width:105px;height:105px;border-radius:50%;display:flex;align-items:center;justify-content:center;text-align:center;font-weight:800;font-size:12px;transform:rotate(-12deg)}
+
+.section{padding:80px 7%;border-top:1px solid var(--line)}
+.section-top{display:flex;justify-content:space-between;gap:25px;margin-bottom:40px}
+.section-number{font-family:'DM Mono';font-size:11px;margin-bottom:15px}
+.section h2{font-size:clamp(38px,6vw,72px);line-height:.94;letter-spacing:-4px}
+.section-intro{max-width:350px;font-size:14px;line-height:1.7}
+
+.manifesto-grid,.directory{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.manifesto-card{padding:28px;min-height:210px;display:flex;flex-direction:column;justify-content:space-between}
+.manifesto-card:nth-child(1){background:var(--lime)}
+.manifesto-card:nth-child(2){background:var(--red)}
+.manifesto-card:nth-child(3){background:var(--blue);color:white}
+.manifesto-card h3{font-size:32px}
+.manifesto-card p,.directory-card p{font-size:13px;line-height:1.6;max-width:260px}
+
+.studio{background:#e9e5db}
+.tabs{display:flex;gap:8px;margin-bottom:28px;flex-wrap:wrap}
+.tab{border:1px solid var(--black);padding:13px 20px;background:transparent;font-size:11px;font-weight:700;letter-spacing:.8px}
+.tab.active{background:var(--black);color:white}
+.tab-panel{display:none}
+.tab-panel.active{display:block}
+.panel-heading{font-size:30px;letter-spacing:-1px;margin-bottom:10px}
+.panel-description{font-size:14px;line-height:1.6;max-width:650px;margin-bottom:25px}
+
+.closet-form{display:grid;grid-template-columns:1.3fr 1fr 1fr;gap:10px;margin-bottom:18px}
+.closet-form input,.closet-form select{
+  background:var(--cream);border:1px solid var(--line);
+  padding:14px;color:var(--black);min-width:0;
+}
+.photo-field{background:var(--cream);border:1px dashed var(--line);padding:15px;margin-bottom:22px}
+.photo-field label{display:block;font-size:12px;font-weight:700;margin-bottom:9px}
+.photo-field input{font-size:12px;max-width:100%}
+.primary-btn{background:var(--black);color:white;border:0;padding:15px 22px;text-transform:uppercase;font-size:11px;font-weight:700;letter-spacing:1px}
+.primary-btn:hover{background:var(--blue)}
+.primary-btn:disabled{opacity:.5;cursor:wait}
+.secondary-btn{background:transparent;border:1px solid var(--black);padding:12px 17px;font-size:11px;text-transform:uppercase;font-weight:700}
+.closet-list{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.closet-item{background:var(--cream);border:1px solid var(--line);padding:12px;position:relative}
+.closet-item img{width:100%;height:155px;object-fit:cover;background:#ddd;display:block;margin-bottom:10px}
+.closet-item strong{font-size:13px;display:block;padding-right:20px}
+.closet-item small{font-family:'DM Mono';font-size:10px;text-transform:uppercase;color:#666}
+.remove-btn{position:absolute;right:12px;bottom:13px;border:0;background:none;color:var(--red);font-size:21px}
+.empty-state{padding:30px;text-align:center;border:1px dashed var(--line);font-size:13px;color:#666;grid-column:1/-1}
+.form-note{font-size:11px;color:#666;line-height:1.5;margin:10px 0 25px}
+
+.remix-controls{display:flex;align-items:center;justify-content:space-between;gap:15px;flex-wrap:wrap;margin:20px 0}
+.remix-status{font-family:'DM Mono';font-size:11px;text-transform:uppercase}
+.outfit-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;margin-top:25px}
+.outfit-card{background:var(--cream);border:1px solid var(--line);overflow:hidden}
+.outfit-card img{width:100%;aspect-ratio:4/5;object-fit:cover;display:block;background:#ddd}
+.outfit-content{padding:20px}
+.outfit-content h3{font-size:23px;letter-spacing:-.5px;margin-bottom:10px}
+.outfit-content p{font-size:13px;line-height:1.6}
+.outfit-pieces{display:flex;flex-wrap:wrap;gap:7px;margin:13px 0}
+.piece-tag{background:var(--lime);padding:7px 9px;font-family:'DM Mono';font-size:10px;text-transform:uppercase}
+.outfit-tip{color:#555;font-style:italic;margin-top:10px}
+.loading-message,.error-message{padding:20px;background:var(--cream);font-size:13px;line-height:1.6;margin-top:20px}
+.error-message{border-left:4px solid var(--red)}
+.disclaimer{font-size:11px;color:#666;line-height:1.6;margin-top:18px}
+
+.impact-grid,.reset-grid{display:grid;grid-template-columns:1fr 1fr;gap:30px}
+.impact-form label{display:block;font-size:12px;font-weight:700;margin:18px 0 8px}
+.impact-form select{width:100%;padding:13px;background:transparent;border:1px solid var(--line)}
+.impact-result{background:var(--lime);padding:30px;min-height:230px}
+.impact-result h3{font-size:28px;margin:15px 0}
+.impact-result p{font-size:14px;line-height:1.7}
+.reset-list{display:flex;flex-direction:column;gap:10px}
+.reset-task{display:flex;align-items:center;gap:12px;padding:15px;border:1px solid var(--line);font-size:13px}
+.reset-task input{width:18px;height:18px;accent-color:var(--blue)}
+.progress-wrap{background:#ddd;height:9px;margin-top:20px}
+.progress-bar{height:9px;background:var(--blue);width:0%;transition:width .3s}
+.progress-label{font-family:'DM Mono';font-size:11px;margin-top:10px}
+
+.directory-card{padding:25px;border:1px solid var(--line);min-height:190px;display:flex;flex-direction:column;justify-content:space-between}
+.directory-card h3{font-size:24px}
+.directory-card a{font-family:'DM Mono';font-size:11px;text-transform:uppercase;color:var(--blue)}
+.quiz-box{background:var(--blue);color:white;padding:35px;max-width:700px}
+.quiz-box h3{font-size:30px;margin-bottom:15px}
+.quiz-box p{font-size:14px;line-height:1.6;margin-bottom:20px}
+.quiz-box select{padding:13px;width:100%;margin-bottom:15px}
+.quiz-result{font-weight:700;margin-top:15px;font-size:17px;line-height:1.5}
+
+footer{background:var(--black);color:white;padding:35px 7%;display:flex;justify-content:space-between;align-items:end;gap:20px}
+.footlogo{font-size:28px;font-weight:800;letter-spacing:-2px;margin-bottom:12px}
+footer p{font-family:'DM Mono';font-size:10px;line-height:1.8;color:#bbb}
+
+@media(max-width:700px){
+  nav{align-items:flex-start;gap:15px}
+  .nav-links{gap:10px;flex-wrap:wrap;justify-content:flex-end;font-size:9px}
+  .hero{padding-top:70px;min-height:450px}
+  .hero h1{letter-spacing:-5px}
+  .hero-bottom{align-items:flex-start}
+  .section{padding:55px 6%}
+  .section-top{flex-direction:column}
+  .manifesto-grid,.directory,.closet-list{grid-template-columns:1fr}
+  .closet-form{grid-template-columns:1fr}
+  .outfit-grid,.impact-grid,.reset-grid{grid-template-columns:1fr}
+  footer{flex-direction:column;align-items:flex-start}
 }
 </style>
 </head>
 
 <body>
-<div class="top">INDEPENDENT FASHION THINKING <span>VOL. 01 — 2026</span></div>
 
-<nav class="nav">
-<a class="brand" href="#">RE<b>:</b>WEAR®</a>
-<div class="navlinks">
-<a href="#manifesto">The idea</a>
-<a href="#studio">Style studio</a>
-<a href="#challenge">The challenge</a>
-<a href="#discover">Discover</a>
-</div>
-<a class="btn" href="#studio">ENTER THE STUDIO ↗</a>
+<nav>
+  <a class="logo" href="#">RE<b>:</b>WEAR®</a>
+  <div class="nav-links">
+    <a href="#manifesto">Manifesto</a>
+    <a href="#studio">Style studio</a>
+    <a href="#reset">The reset</a>
+    <a href="#directory">Discover</a>
+  </div>
 </nav>
 
-<main>
-<section class="hero">
-<div>
-<div class="eyebrow">A DIFFERENT KIND OF FASHION PLATFORM</div>
-<h1>Dress<br><span class="outline">less.</span><br><span class="red">Mean</span><br>more.</h1>
-<p class="hero-copy">A sharper point of view on what we wear. Discover your personal style, remix what you own and make more considered choices — without compromising on creativity.</p>
-<div class="hero-actions">
-<a class="btn" href="#studio">FIND YOUR NEXT LOOK ↗</a>
-<a class="under" href="#manifesto">OUR POINT OF VIEW ↓</a>
-</div>
-</div>
-<div class="hero-art">
-<img src="https://images.unsplash.com/photo-1539109136881-3be0616acf4b?auto=format&fit=crop&w=1200&q=85" alt="Fashion editorial portrait">
-<div class="sticker">STYLE<br>WITH<br>INTENTION ✳</div>
-<div class="art-caption">NOT MORE CLOTHES. MORE IMAGINATION.</div>
-</div>
+<header class="hero">
+  <div class="mono hero-label">A DIFFERENT WAY TO GET DRESSED — 2026</div>
+  <h1>DRESS LESS.<br><span>MEAN MORE.</span></h1>
+  <div class="hero-bottom">
+    <p>Fashion doesn't always need something new. Sometimes, it just needs a new perspective. Rediscover your wardrobe and make more of what you already own.</p>
+    <div class="hero-stamp">RETHINK<br>YOUR<br>WARDROBE</div>
+  </div>
+</header>
+
+<section class="section" id="manifesto">
+  <div class="section-top">
+    <div><div class="section-number">01 / THE MANIFESTO</div><h2>THE NEW<br>RULES.</h2></div>
+    <p class="section-intro">A more conscious wardrobe starts with a simple idea: use what you have, rethink what you buy, and make your clothes last.</p>
+  </div>
+  <div class="manifesto-grid">
+    <div class="manifesto-card"><div class="mono">01 — THINK</div><h3>Think first.</h3><p>Before buying something new, take a moment to question whether you really need it.</p></div>
+    <div class="manifesto-card"><div class="mono">02 — RE-MIX</div><h3>Wear again.</h3><p>Rediscover forgotten pieces and find new ways to combine the clothes you already own.</p></div>
+    <div class="manifesto-card"><div class="mono">03 — REPEAT</div><h3>Make it last.</h3><p>Repeat outfits, take care of your clothes and make thoughtful choices every day.</p></div>
+  </div>
 </section>
 
-<div class="ticker">
-<span>✳ REPEAT THE LOOK</span><span>✳ QUESTION THE LABEL</span><span>✳ MAKE IT LAST</span><span>✳ BUY LESS, STYLE MORE</span>
-</div>
+<section class="section studio" id="studio">
+  <div class="section-top">
+    <div><div class="section-number">02 / YOUR PERSONAL STYLE STUDIO</div><h2>YOUR CLOTHES.<br>NEW IDEAS.</h2></div>
+    <p class="section-intro">Upload your own clothes and let RE:WEAR create new outfit combinations using the pieces you already own.</p>
+  </div>
 
-<section class="wrap" id="manifesto">
-<div class="sectiontop">
-<div><div class="eyebrow">01 / THE RE:WEAR POINT OF VIEW</div><h2>New rules.<br><em>Better habits.</em></h2></div>
-<p class="intro">Sustainable style is not a uniform. It is a mindset: wear what you have, understand what you buy and give good pieces a longer story.</p>
-</div>
-<div class="manifesto">
-<article><div class="num">01 — THINK</div><div><h3>Question the impulse.</h3><p>Before the next purchase, ask if it fits your style, your life and your wardrobe.</p></div></article>
-<article><div class="num">02 — RE-MIX</div><div><h3>Make old feel new.</h3><p>Try unexpected combinations. Your wardrobe has more potential than you think.</p></div></article>
-<article><div class="num">03 — REPEAT</div><div><h3>Wear it out.</h3><p>Care, repair, swap and rewear. The best pieces are the ones that stay in rotation.</p></div></article>
-</div>
+  <div class="tabs">
+    <button class="tab active" data-tab="closet">01 — DIGITAL CLOSET</button>
+    <button class="tab" data-tab="remix">02 — STYLE REMIX</button>
+  </div>
+
+  <div class="tab-panel active" id="closet">
+    <h3 class="panel-heading">Build your digital wardrobe.</h3>
+    <p class="panel-description">Add a photo of each clothing item. Your photos will be used as visual references when generating your outfit combinations.</p>
+
+    <form id="closetForm">
+      <div class="closet-form">
+        <input id="itemName" type="text" placeholder="Item name — e.g. White shirt" required maxlength="60">
+        <select id="itemCategory" required>
+          <option value="">Choose category</option>
+          <option value="Tops">Tops</option>
+          <option value="Bottoms">Bottoms</option>
+          <option value="Outerwear">Outerwear</option>
+          <option value="Shoes">Shoes</option>
+          <option value="Accessories">Accessories</option>
+          <option value="Dresses">Dresses</option>
+        </select>
+        <input id="itemColor" type="text" placeholder="Colour (optional)" maxlength="35">
+      </div>
+      <div class="photo-field">
+        <label for="itemPhoto">UPLOAD A PHOTO OF YOUR ITEM *</label>
+        <input id="itemPhoto" type="file" accept="image/jpeg,image/png,image/webp" required>
+      </div>
+      <button class="primary-btn" type="submit">+ ADD TO MY CLOSET</button>
+    </form>
+
+    <p class="form-note">For best results, upload a clear photo of one clothing item at a time, preferably against a plain background. Images are resized in your browser before being saved.</p>
+
+    <div class="mono" style="margin:25px 0 15px">YOUR DIGITAL CLOSET</div>
+    <div class="closet-list" id="closetList"></div>
+    <p class="mono" id="closetCount" style="margin-top:18px">0 PIECES ADDED</p>
+    <button class="secondary-btn" style="margin-top:20px" onclick="showTab('remix')">NEXT: STYLE REMIX ↗</button>
+  </div>
+
+  <div class="tab-panel" id="remix">
+    <h3 class="panel-heading">Your wardrobe, remixed.</h3>
+    <p class="panel-description">RE:WEAR selects pieces from your digital closet, creates different outfit combinations and generates an image for each look using your uploaded photos as references.</p>
+
+    <div class="remix-controls">
+      <span class="remix-status" id="remixCount">0 PIECES IN YOUR DIGITAL CLOSET</span>
+      <button class="primary-btn" id="generateButton" onclick="generateOutfits()">GENERATE MY OUTFITS ↗</button>
+    </div>
+
+    <div id="outfitResults">
+      <div class="empty-state">Your outfit combinations will appear here. Add clothes to your Digital Closet first.</div>
+    </div>
+    <p class="disclaimer">AI-generated outfit images are visual interpretations of your uploaded clothing references. The generated result may not reproduce every detail of the original garments perfectly.</p>
+    <button class="secondary-btn" style="margin-top:22px" onclick="showTab('closet')">← BACK TO DIGITAL CLOSET</button>
+  </div>
 </section>
 
-<section class="studio" id="studio">
-<div class="studio-inner">
-<div class="sectiontop">
-<div><div class="eyebrow" style="color:var(--lime)">02 / THE INTERACTIVE EDIT</div><h2>Your wardrobe.<br><span style="color:var(--lime)">Your rules.</span></h2></div>
-<p class="intro">A personal style playground. Add pieces to your digital closet, remix what you own and rethink your next fashion move.</p>
-</div>
-
-<div class="tabs">
-<button class="tab active" data-tab="closet">01 DIGITAL CLOSET</button>
-<button class="tab" data-tab="outfit">02 STYLE REMIX</button>
-<button class="tab" data-tab="impact">03 IMPACT CHECK</button>
-</div>
-
-<div class="panel active" id="closet">
-<div class="panelgrid">
-<div>
-<div class="eyebrow">BUILD YOUR EDIT</div>
-<h3>What's in your wardrobe?</h3>
-<p>Add a few pieces you already own. Your list is saved in this browser, so you can come back to it later.</p>
-<div class="field"><label for="clothing">Clothing item</label><input id="clothing" placeholder="e.g. vintage denim jacket"></div>
-<div class="field"><label for="category">Category</label>
-<select id="category">
-<option>Tops</option><option>Bottoms</option><option>Outerwear</option><option>Shoes</option><option>Accessories</option><option>Dresses</option>
-</select></div>
-<button class="btn" onclick="addClothing()">ADD TO MY CLOSET +</button>
-<div class="notice" id="closetNotice"></div>
-</div>
-<div>
-<div class="eyebrow">YOUR DIGITAL RAIL</div>
-<h3 id="closetCount">0 pieces</h3>
-<div id="closetItems" class="empty">Your closet is waiting. Add your first piece to get started.</div>
-<button class="under" style="margin-top:18px;background:none;border:0;border-bottom:1px solid;cursor:pointer" onclick="clearCloset()">CLEAR MY CLOSET</button>
-</div>
-</div>
-</div>
-
-<div class="panel" id="outfit">
-<div class="panelgrid">
-<div>
-<div class="eyebrow">THE STYLE REMIXER</div>
-<h3>Your pieces.<br>New perspective.</h3>
-<p>Select the clothes you added to your Digital Closet and choose the mood you want. RE:WEAR will create a visual composition using your selected pieces and give you styling suggestions.</p>
-<div class="field"><label>Your selected wardrobe pieces</label><div id="remixClosetItems" class="empty">Add pieces in Digital Closet first. They will appear here.</div></div>
-<div class="field"><label for="mood">Your mood</label>
-<select id="mood">
-<option value="effortless">Off-duty effortless</option>
-<option value="bold">Art-school energy</option>
-<option value="polished">Quietly polished</option>
-</select></div>
-<button class="btn" onclick="remix()">GENERATE MY LOOK ↗</button>
-</div>
-<div>
-<div class="eyebrow">YOUR PERSONALIZED OUTFIT</div>
-<div id="outfitResult" class="look-result">
-<div class="look-placeholder">Your next outfit starts here.<br><span>Select your pieces and generate a look.</span></div>
-</div>
-</div>
-</div>
-</div>
-
-<div class="panel" id="impact">
-<div class="panelgrid">
-<div>
-<div class="eyebrow">A MOMENT BEFORE YOU BUY</div>
-<h3>Is it a want<br>or a wardrobe gap?</h3>
-<p>A quick reflection tool to help you pause before a new purchase. This is a personal decision aid, not a scientific environmental footprint calculation.</p>
-<div class="field"><label for="frequency">How often do you think you'll wear it?</label>
-<select id="frequency">
-<option value="often">Every week</option>
-<option value="sometimes">A few times a month</option>
-<option value="rarely">Only once or twice</option>
-</select></div>
-<div class="field"><label for="alternative">Have you checked for an alternative?</label>
-<select id="alternative">
-<option value="yes">Yes — second-hand or already owned</option>
-<option value="no">Not yet</option>
-</select></div>
-<button class="btn" onclick="impactCheck()">CHECK MY CHOICE ↗</button>
-</div>
-<div>
-<div class="eyebrow">YOUR CONSIDERED VERDICT</div>
-<div class="notice" id="impactResult" style="display:block;background:#e8e5dc">Your result will appear here. No guilt, just a more thoughtful choice.</div>
-</div>
-</div>
-</div>
-</div>
+<section class="section" id="impact">
+  <div class="section-top">
+    <div><div class="section-number">03 / THINK BEFORE YOU BUY</div><h2>THE IMPACT<br>CHECK.</h2></div>
+    <p class="section-intro">A small pause can make a big difference. Ask yourself a few questions before making your next fashion purchase.</p>
+  </div>
+  <div class="impact-grid">
+    <div class="impact-form">
+      <label for="wearFrequency">How often do you think you will wear this item?</label>
+      <select id="wearFrequency">
+        <option value="often">Very often — it's a wardrobe essential</option>
+        <option value="sometimes">Sometimes — for specific occasions</option>
+        <option value="rarely">Rarely — probably only once or twice</option>
+      </select>
+      <label for="alternatives">Have you checked whether you already own something similar?</label>
+      <select id="alternatives">
+        <option value="yes">Yes, and I really need this item</option>
+        <option value="no">No, I haven't checked</option>
+      </select>
+      <label for="secondhand">Have you considered buying it second-hand?</label>
+      <select id="secondhand">
+        <option value="yes">Yes</option><option value="no">Not yet</option>
+      </select>
+      <button class="primary-btn" style="margin-top:25px" onclick="checkImpact()">CHECK MY CHOICE ↗</button>
+    </div>
+    <div class="impact-result" id="impactResult">
+      <div class="mono">YOUR CONSCIOUS CHECK</div>
+      <h3>Pause. Reflect. Decide.</h3>
+      <p>Answer the questions to receive a reminder before your next fashion purchase.</p>
+    </div>
+  </div>
 </section>
 
-<section class="wrap challenge" id="challenge">
-<div class="eyebrow">03 / THE 5-DAY RESET</div>
-<div class="sectiontop">
-<div><h2>Change the habit.<br><em>Keep the style.</em></h2></div>
-<p class="intro">Five small actions to reconnect with your wardrobe. Tick each one off as you go — your progress is saved on this device.</p>
-</div>
-<div class="challengebox">
-<h3 id="progressText">0 / 5 complete</h3>
-<div class="bar"><span id="progressBar"></span></div>
-<label class="check"><input type="checkbox" class="day"> Day 1 — Create a new outfit from old favourites.</label>
-<label class="check"><input type="checkbox" class="day"> Day 2 — Repair, wash or care for one item.</label>
-<label class="check"><input type="checkbox" class="day"> Day 3 — Explore one second-hand platform.</label>
-<label class="check"><input type="checkbox" class="day"> Day 4 — Ask who made a piece you love.</label>
-<label class="check"><input type="checkbox" class="day"> Day 5 — Plan a week of no impulse buys.</label>
-</div>
+<section class="section" id="reset">
+  <div class="section-top">
+    <div><div class="section-number">04 / THE FIVE-DAY CHALLENGE</div><h2>THE 5-DAY<br>RESET.</h2></div>
+    <p class="section-intro">Five small actions to reconnect with your wardrobe and rethink your relationship with fashion.</p>
+  </div>
+  <div class="reset-grid">
+    <div class="reset-list" id="resetList">
+      <label class="reset-task"><input type="checkbox" data-day="0"> Day 01 — Rediscover five pieces you haven't worn recently.</label>
+      <label class="reset-task"><input type="checkbox" data-day="1"> Day 02 — Create a new outfit using only clothes you own.</label>
+      <label class="reset-task"><input type="checkbox" data-day="2"> Day 03 — Repair or take care of one item.</label>
+      <label class="reset-task"><input type="checkbox" data-day="3"> Day 04 — Avoid unnecessary fashion purchases today.</label>
+      <label class="reset-task"><input type="checkbox" data-day="4"> Day 05 — Plan three outfits for the week ahead.</label>
+    </div>
+    <div>
+      <div class="mono">YOUR PROGRESS</div>
+      <h3 style="font-size:38px;margin-top:15px">Small steps.<br>Real change.</h3>
+      <p style="font-size:14px;line-height:1.6;margin-top:15px">Complete the five challenges at your own pace. Every conscious decision counts.</p>
+      <div class="progress-wrap"><div class="progress-bar" id="progressBar"></div></div>
+      <div class="progress-label" id="progressLabel">0 / 5 COMPLETED</div>
+    </div>
+  </div>
 </section>
 
-<section class="wrap" id="discover">
-<div class="sectiontop">
-<div><div class="eyebrow">04 / THE CONSCIOUS DIRECTORY</div><h2>Know where<br><em>to look.</em></h2></div>
-<p class="intro">A few useful starting points for exploring resale, brand transparency and more circular ways to shop.</p>
-</div>
-<div class="directory">
-<article><div class="tag">RESALE / COMMUNITY</div><h3>Vinted</h3><p>Buy and sell pre-loved pieces. Search second-hand before buying new and pass on items you no longer wear.</p><a href="https://www.vinted.com/" target="_blank" rel="noopener">EXPLORE ↗</a></article>
-<article><div class="tag">DESIGNER RESALE</div><h3>Vestiaire Collective</h3><p>A marketplace for pre-owned designer fashion, helping existing pieces find a new wardrobe.</p><a href="https://www.vestiairecollective.com/" target="_blank" rel="noopener">EXPLORE ↗</a></article>
-<article><div class="tag">BRAND RESEARCH</div><h3>Good On You</h3><p>Research how fashion brands perform on people, the planet and animal welfare before you buy.</p><a href="https://goodonyou.eco/" target="_blank" rel="noopener">EXPLORE ↗</a></article>
-</div>
-<p class="mono" style="font-size:9px;color:var(--muted);margin-top:18px">INDEPENDENT STUDENT PROJECT. LISTINGS ARE FOR DISCOVERY AND DO NOT IMPLY ENDORSEMENT.</p>
+<section class="section" id="directory">
+  <div class="section-top">
+    <div><div class="section-number">05 / CONSCIOUS DISCOVERY</div><h2>GOOD FASHION.<br>BETTER CHOICES.</h2></div>
+    <p class="section-intro">Explore platforms and resources that can help you make more informed and conscious fashion decisions.</p>
+  </div>
+  <div class="directory">
+    <div class="directory-card"><div class="mono">SECOND-HAND FASHION</div><h3>Vinted</h3><p>Buy and sell pre-loved clothing and give garments a second life.</p><a href="https://www.vinted.com/" target="_blank" rel="noopener">EXPLORE ↗</a></div>
+    <div class="directory-card"><div class="mono">PRE-LOVED DESIGNER</div><h3>Vestiaire Collective</h3><p>Discover pre-owned designer fashion and extend the life of luxury pieces.</p><a href="https://www.vestiairecollective.com/" target="_blank" rel="noopener">EXPLORE ↗</a></div>
+    <div class="directory-card"><div class="mono">BRAND TRANSPARENCY</div><h3>Good On You</h3><p>Learn more about how fashion brands perform on people, planet and animals.</p><a href="https://goodonyou.eco/" target="_blank" rel="noopener">EXPLORE ↗</a></div>
+  </div>
 </section>
 
-<section class="quiz">
-<div class="eyebrow" style="color:var(--lime)">05 / FIND YOUR FASHION POV</div>
-<h2>What's your<br>style instinct?</h2>
-<p>Pick the statement that feels most like you.</p>
-<div class="quiz-options">
-<button onclick="quiz(this,'explorer')">I chase new ideas.</button>
-<button onclick="quiz(this,'editor')">I buy with intention.</button>
-<button onclick="quiz(this,'remixer')">I reinvent what I own.</button>
-</div>
-<div id="quizResult"></div>
+<section class="section" id="quiz">
+  <div class="section-top">
+    <div><div class="section-number">06 / YOUR STYLE INSTINCT</div><h2>WHAT'S YOUR<br>FASHION MINDSET?</h2></div>
+    <p class="section-intro">A little reflection on how you approach your wardrobe. Discover which conscious fashion mindset describes you best.</p>
+  </div>
+  <div class="quiz-box">
+    <h3>What's your usual reaction when you feel like wearing something new?</h3>
+    <p>Choose the answer that sounds most like you.</p>
+    <select id="quizAnswer">
+      <option value="">Choose your answer</option>
+      <option value="explorer">I look for inspiration and experiment with new ideas.</option>
+      <option value="editor">I prefer timeless pieces and thoughtful choices.</option>
+      <option value="remixer">I love finding unexpected combinations in my existing wardrobe.</option>
+    </select>
+    <button class="primary-btn" style="background:var(--lime);color:var(--black)" onclick="runQuiz()">DISCOVER MY MINDSET ↗</button>
+    <div class="quiz-result" id="quizResult"></div>
+  </div>
 </section>
-</main>
 
-<footer class="footer">
-<div><div class="footlogo">RE<b>:</b>WEAR®</div><p>THE NEW RULES OF FASHION. VOL. 01 — 2026</p></div>
-<div class="mono">LESS IMPULSE. MORE POINT OF VIEW. ↗</div>
+<footer>
+  <div>
+    <div class="footlogo">RE<b>:</b>WEAR®</div>
+    <p>THE NEW RULES OF FASHION. VOL. 01 — 2026</p>
+    <p>AN INDEPENDENT FASHION PROJECT BY GEMMA MIQUEL</p>
+  </div>
+  <div class="mono">LESS IMPULSE. MORE POINT OF VIEW. ↗</div>
 </footer>
 
 <script>
-const $ = id => document.getElementById(id);
-
+/* DIGITAL CLOSET */
 let closet = [];
+
 try {
- closet = JSON.parse(localStorage.getItem('rewearCloset') || '[]');
- if (!Array.isArray(closet)) closet = [];
-} catch(e) {
- closet = [];
-}
-
-function escapeHtml(value) {
- return String(value).replace(/[&<>"']/g, c => ({
-  '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
- }[c]));
-}
-
-function saveCloset() {
- localStorage.setItem('rewearCloset', JSON.stringify(closet));
-}
-
-function renderCloset() {
- $('closetCount').textContent = closet.length + (closet.length === 1 ? ' piece' : ' pieces');
- const box = $('closetItems');
-
- if (!closet.length) {
-  box.className = 'empty';
-  box.textContent = 'Your closet is waiting. Add your first piece to get started.';
- } else {
-  box.className = 'closet-list';
-  box.innerHTML = closet.map((item, i) =>
-   `<span class="chip">${escapeHtml(item.name)} · ${escapeHtml(item.category)}
-   <button aria-label="Remove item" onclick="removeClothing(${i})" style="border:0;background:none;cursor:pointer">×</button></span>`
-  ).join('');
- }
- renderRemixCloset();
-}
-
-function addClothing() {
- const name = $('clothing').value.trim();
-
- if (!name) {
-  $('closetNotice').style.display = 'block';
-  $('closetNotice').textContent = 'Please enter a clothing item first.';
-  return;
- }
-
- closet.push({name, category:$('category').value});
- saveCloset();
- $('clothing').value = '';
- $('closetNotice').style.display = 'block';
- $('closetNotice').textContent = 'Added to your digital rail. Nice one!';
- renderCloset();
-}
-
-function removeClothing(index) {
- closet.splice(index, 1);
- saveCloset();
- renderCloset();
-}
-
-function clearCloset() {
- if (confirm('Clear all pieces from your digital closet?')) {
+  closet = JSON.parse(localStorage.getItem('rewearCloset')) || [];
+} catch {
   closet = [];
-  saveCloset();
-  renderCloset();
- }
 }
 
-document.querySelectorAll('.tab').forEach(button => {
- button.addEventListener('click', () => {
-  document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
-  document.querySelectorAll('.panel').forEach(panel => panel.classList.remove('active'));
-  button.classList.add('active');
-  $(button.dataset.tab).classList.add('active');
- });
-});
-
-function renderRemixCloset() {
- const box = $('remixClosetItems');
-
- if (!closet.length) {
-  box.className = 'empty';
-  box.textContent = 'Add pieces in Digital Closet first. They will appear here.';
-  return;
- }
-
- box.className = '';
- box.innerHTML = closet.map((item, index) =>
-  `<label class="wardrobe-choice">
-   <input type="checkbox" class="remix-piece" value="${index}" checked>
-   ${escapeHtml(item.name)} · ${escapeHtml(item.category)}
-  </label>`
- ).join('');
-}
-
-/* STYLE REMIX
-   Creates a visual composition from the actual items selected
-   in the Digital Closet. No generic fashion photos or API calls. */
-
-const looks = {
- effortless: {
-  title:'OFF-DUTY EFFORTLESS',
-  description:'Relaxed proportions, easy layers and versatile pieces. Keep the styling natural and let comfort lead.',
-  tip:'Styling idea: aim for an easy, balanced silhouette. Try a relaxed fit and avoid overcomplicating the look.'
- },
- bold: {
-  title:'ART-SCHOOL ENERGY',
-  description:'Play with contrast, unexpected proportions and statement details. Experiment with combinations you might not usually try.',
-  tip:'Styling idea: mix different textures, introduce a contrasting colour and let one piece become the focus.'
- },
- polished: {
-  title:'QUIETLY POLISHED',
-  description:'Clean lines, considered layers and versatile basics. Small styling changes can make familiar pieces feel more refined.',
-  tip:'Styling idea: build around simple shapes, balanced proportions and understated accessories.'
- }
+const icons = {
+  Tops:'👕', Bottoms:'👖', Outerwear:'🧥',
+  Shoes:'👟', Accessories:'👜', Dresses:'👗'
 };
 
-function getPieceIcon(category) {
- const icons = {
-  'Tops':'👕',
-  'Bottoms':'👖',
-  'Outerwear':'🧥',
-  'Shoes':'👟',
-  'Accessories':'👜',
-  'Dresses':'👗'
- };
- return icons[category] || '✳';
+function saveCloset(){
+  try {
+    localStorage.setItem('rewearCloset',JSON.stringify(closet));
+  } catch(error) {
+    alert('Your browser storage is full. Remove some items or use smaller photos.');
+  }
 }
 
-function remix() {
- const selected = [...document.querySelectorAll('.remix-piece:checked')]
-  .map(input => closet[Number(input.value)])
-  .filter(Boolean);
-
- if (!selected.length) {
-  $('outfitResult').innerHTML =
-   '<div class="look-placeholder">Select at least one piece.<br><span>Choose items from your Digital Closet.</span></div>';
-  return;
- }
-
- const mood = $('mood').value;
- const look = looks[mood];
- const categories = [...new Set(selected.map(item => item.category))];
-
- const suggestions = [];
-
- if (categories.includes('Tops') && categories.includes('Bottoms')) {
-  suggestions.push('Use your selected top and bottom as the foundation of the outfit. Experiment with tucking, layering or changing proportions.');
- }
-
- if (categories.includes('Dresses')) {
-  suggestions.push('Make your dress the central piece. Change its feel with the shoes, outerwear or accessories you have selected.');
- }
-
- if (categories.includes('Outerwear')) {
-  suggestions.push('Layer your selected outerwear over the outfit to add structure, warmth and personality.');
- }
-
- if (categories.includes('Shoes')) {
-  suggestions.push('Use your selected shoes to define the overall feel of the look.');
- }
-
- if (categories.includes('Accessories')) {
-  suggestions.push('Finish the outfit with your selected accessories. Small details can change the whole impression.');
- }
-
- if (!suggestions.length) {
-  suggestions.push('Start with your selected piece and build around it. Experiment with layering, proportions and accessories already in your wardrobe.');
- }
-
- const piecesHTML = selected.map(item => `
-  <div class="outfit-piece">
-   <div class="piece-icon">${getPieceIcon(item.category)}</div>
-   <strong>${escapeHtml(item.name)}</strong>
-   <span>${escapeHtml(item.category)}</span>
-  </div>
- `).join('');
-
- $('outfitResult').innerHTML = `
-  <div class="outfit-heading">YOUR SELECTED PIECES — ${selected.length} ITEM${selected.length === 1 ? '' : 'S'}</div>
-
-  <div class="outfit-composition">
-   ${piecesHTML}
-  </div>
-
-  <div class="outfit-mood">
-   <strong>${escapeHtml(look.title)}</strong>
-   <p>${escapeHtml(look.description)}</p>
-  </div>
-
-  <div class="look-copy">
-   <b>YOUR STYLING NOTES</b>
-   <ul>
-    ${suggestions.map(s => `<li>${escapeHtml(s)}</li>`).join('')}
-   </ul>
-   <p>${escapeHtml(look.tip)}</p>
-  </div>
-
-  <div class="outfit-disclaimer">
-   THIS COMPOSITION SHOWS THE ACTUAL ITEMS YOU SELECTED FROM YOUR DIGITAL CLOSET. THE ICONS REPRESENT CLOTHING CATEGORIES, NOT PHOTOGRAPHS OF YOUR EXACT GARMENTS.
-  </div>
- `;
+function escapeHTML(value){
+  return String(value).replace(/[&<>"']/g,c=>({
+    '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'
+  })[c]);
 }
 
-function impactCheck() {
- const frequency = $('frequency').value;
- const alternative = $('alternative').value;
- let title, message;
+function renderCloset(){
+  const list=document.getElementById('closetList');
+  document.getElementById('closetCount').textContent=
+    closet.length+(closet.length===1?' PIECE ADDED':' PIECES ADDED');
+  document.getElementById('remixCount').textContent=
+    closet.length+(closet.length===1?' PIECE IN YOUR DIGITAL CLOSET':' PIECES IN YOUR DIGITAL CLOSET');
 
- if (frequency === 'often' && alternative === 'yes') {
-  title = 'GREEN LIGHT — WITH INTENTION';
-  message = 'You expect to wear it often and have considered alternatives. Check quality, fit and brand information before deciding.';
- } else if (frequency === 'rarely') {
-  title = 'PAUSE BEFORE YOU PURCHASE';
-  message = 'If you will only wear it once or twice, try borrowing, renting, swapping or styling something you already own.';
- } else if (alternative === 'no') {
-  title = 'DO A LITTLE MORE RESEARCH';
-  message = 'Check your existing wardrobe and look for second-hand options before buying new.';
- } else {
-  title = 'MAKE IT EARN ITS PLACE';
-  message = 'Think about cost per wear, versatility and how long it will last.';
- }
+  if(!closet.length){
+    list.innerHTML='<div class="empty-state">Your digital wardrobe is waiting. Upload your first clothing item.</div>';
+    return;
+  }
 
- $('impactResult').innerHTML = `<b style="font-size:20px">${title}</b><br><br>${message}`;
- $('impactResult').style.display = 'block';
+  list.innerHTML=closet.map((item,index)=>`
+    <div class="closet-item">
+      <img src="${item.photo}" alt="${escapeHTML(item.name)}">
+      <strong>${icons[item.category]||'✦'} ${escapeHTML(item.name)}</strong>
+      <small>${escapeHTML(item.category)}${item.color?' · '+escapeHTML(item.color):''}</small>
+      <button class="remove-btn" onclick="removeItem(${index})" aria-label="Remove item">×</button>
+    </div>
+  `).join('');
 }
 
-const days = [...document.querySelectorAll('.day')];
+/* Resize uploaded photos to keep requests manageable */
+function resizePhoto(file){
+  return new Promise((resolve,reject)=>{
+    const reader=new FileReader();
+    reader.onload=()=>{
+      const image=new Image();
+      image.onload=()=>{
+        const max=700;
+        const scale=Math.min(1,max/Math.max(image.width,image.height));
+        const canvas=document.createElement('canvas');
+        canvas.width=Math.round(image.width*scale);
+        canvas.height=Math.round(image.height*scale);
+        const context=canvas.getContext('2d');
+        context.drawImage(image,0,0,canvas.width,canvas.height);
+        resolve(canvas.toDataURL('image/jpeg',0.78));
+      };
+      image.onerror=reject;
+      image.src=reader.result;
+    };
+    reader.onerror=reject;
+    reader.readAsDataURL(file);
+  });
+}
 
-days.forEach((day, index) => {
- day.checked = localStorage.getItem('rewearDay' + index) === '1';
- day.addEventListener('change', () => {
-  localStorage.setItem('rewearDay' + index, day.checked ? '1' : '0');
-  updateProgress();
- });
+document.getElementById('closetForm').addEventListener('submit',async event=>{
+  event.preventDefault();
+
+  const name=document.getElementById('itemName').value.trim();
+  const category=document.getElementById('itemCategory').value;
+  const color=document.getElementById('itemColor').value.trim();
+  const file=document.getElementById('itemPhoto').files[0];
+
+  if(!file){alert('Please upload a photo of your clothing item.');return;}
+  if(!['image/jpeg','image/png','image/webp'].includes(file.type)){
+    alert('Please use a JPG, PNG or WEBP image.');return;
+  }
+
+  const button=event.submitter;
+  button.disabled=true;
+  button.textContent='ADDING...';
+
+  try{
+    const photo=await resizePhoto(file);
+    closet.push({name,category,color,photo});
+    saveCloset();
+    renderCloset();
+    event.target.reset();
+  }catch(error){
+    alert('Could not read this photo. Please try another one.');
+  }finally{
+    button.disabled=false;
+    button.textContent='+ ADD TO MY CLOSET';
+  }
 });
 
-function updateProgress() {
- const count = days.filter(day => day.checked).length;
- $('progressText').textContent = count + ' / 5 complete';
- $('progressBar').style.width = (count / 5 * 100) + '%';
-
- if (count === 5) {
-  $('progressText').textContent = '5 / 5 — RESET COMPLETE!';
- }
+function removeItem(index){
+  closet.splice(index,1);
+  saveCloset();
+  renderCloset();
 }
 
-function quiz(button, type) {
- document.querySelectorAll('.quiz-options button').forEach(b => b.classList.remove('selected'));
- button.classList.add('selected');
+/* TABS */
+document.querySelectorAll('.tab').forEach(button=>{
+  button.addEventListener('click',()=>showTab(button.dataset.tab));
+});
 
- const results = {
-  explorer:'THE EXPLORER — Stay curious. Try recreating trends with pieces already in your wardrobe.',
-  editor:'THE CONSIDERED EDITOR — Your strength is intention. Choose fewer pieces that work harder.',
-  remixer:'THE REMIXER — You see possibility in what you own. Make outfit repeating your signature.'
- };
+function showTab(name){
+  document.querySelectorAll('.tab').forEach(button=>{
+    button.classList.toggle('active',button.dataset.tab===name);
+  });
+  document.querySelectorAll('.tab-panel').forEach(panel=>{
+    panel.classList.toggle('active',panel.id===name);
+  });
+  if(name==='remix') {
+    document.getElementById('remixCount').textContent=
+      closet.length+' PIECES IN YOUR DIGITAL CLOSET';
+  }
+}
 
- $('quizResult').textContent = results[type];
+/* CREATE OUTFIT COMBINATIONS FROM THE ACTUAL CLOSET */
+function createCombinations(){
+  const byCategory={};
+  closet.forEach(item=>{
+    (byCategory[item.category] ||= []).push(item);
+  });
+
+  const outfits=[];
+  const tops=byCategory.Tops||[];
+  const bottoms=byCategory.Bottoms||[];
+  const outerwear=byCategory.Outerwear||[];
+  const shoes=byCategory.Shoes||[];
+  const accessories=byCategory.Accessories||[];
+  const dresses=byCategory.Dresses||[];
+
+  function add(title,items,description,tip){
+    const unique=[...new Map(items.map(item=>[item.name+'-'+item.category,item])).values()];
+    if(unique.length>=2 && outfits.length<4){
+      outfits.push({title,items:unique,description,tip});
+    }
+  }
+
+  // Outfit combinations built from the user's uploaded pieces.
+  if(tops.length && bottoms.length){
+    add('EVERYDAY REMIX',[tops[0],bottoms[0],...(shoes.length?[shoes[0]]:[])],
+      'A versatile everyday combination using pieces already in your wardrobe.',
+      'Try changing the proportions: tuck in your top, roll up your sleeves or add a belt.');
+  }
+
+  if(tops.length>1 && bottoms.length){
+    add('THE ALTERNATIVE',[tops[1],bottoms[0],...(outerwear.length?[outerwear[0]]:[]),...(shoes.length>1?[shoes[1]]:[])],
+      'A second interpretation of your wardrobe. Replacing just one piece can change the entire feel of an outfit.',
+      'Keep the silhouette balanced and let one item stand out.');
+  }
+
+  if(tops.length && bottoms.length>1){
+    add('SMART MIX',[tops[0],bottoms[1],...(outerwear.length?[outerwear[0]]:[]),...(accessories.length?[accessories[0]]:[])],
+      'A more considered combination that uses familiar pieces in a different way.',
+      'Use accessories to connect the colours and details of your outfit.');
+  }
+
+  if(dresses.length && shoes.length){
+    add('ONE-PIECE LOOK',[dresses[0],shoes[0],...(outerwear.length?[outerwear[0]]:[]),...(accessories.length?[accessories[0]]:[])],
+      'An effortless outfit built around a dress you already own.',
+      'Layer with outerwear or accessories to make the look feel new.');
+  }
+
+  // If the wardrobe is smaller, create combinations from available pieces.
+  if(outfits.length===0 && closet.length>=2){
+    const selected=closet.slice(0,Math.min(4,closet.length));
+    add('YOUR FIRST REMIX',selected,
+      'A first styling experiment with the pieces you have added. Add more clothing categories for more varied combinations.',
+      'Experiment with layers, proportions and accessories.');
+  }
+
+  return outfits;
+}
+
+/* GENERATE ONE IMAGE PER OUTFIT */
+async function generateOutfits(){
+  const results=document.getElementById('outfitResults');
+  const button=document.getElementById('generateButton');
+
+  if(closet.length<2){
+    results.innerHTML='<div class="error-message">Please add at least two clothing items to your Digital Closet before creating outfit combinations.</div>';
+    return;
+  }
+
+  const outfits=createCombinations();
+  if(!outfits.length){
+    results.innerHTML='<div class="error-message">Add more pieces from different categories to create outfit combinations.</div>';
+    return;
+  }
+
+  button.disabled=true;
+  button.textContent='CREATING YOUR OUTFITS...';
+  results.innerHTML='<div class="loading-message">RE:WEAR is styling your wardrobe and generating images from your uploaded clothing photos. This may take a little while. Please keep this page open.</div>';
+
+  const cards=[];
+
+  try{
+    for(let i=0;i<outfits.length;i++){
+      const outfit=outfits[i];
+
+      const response=await fetch('/api/style-remix',{
+        method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({
+          items:outfit.items.map(item=>({
+            name:item.name,
+            category:item.category,
+            color:item.color||'',
+            image:item.photo
+          }))
+        })
+      });
+
+      const data=await response.json();
+      if(!response.ok) throw new Error(data.error||'Image generation failed.');
+
+      cards.push({
+        ...outfit,
+        image:'data:image/png;base64,'+data.image
+      });
+
+      // Show each completed outfit as soon as it is ready.
+      renderOutfitCards(cards);
+    }
+  }catch(error){
+    results.insertAdjacentHTML('beforeend',
+      '<div class="error-message"><strong>We could not finish generating your outfits.</strong><br>'+
+      escapeHTML(error.message)+
+      '<br><br>Check that your OpenAI API key is correctly configured in Vercel and try again.</div>');
+  }finally{
+    button.disabled=false;
+    button.textContent='GENERATE MY OUTFITS ↗';
+  }
+}
+
+function renderOutfitCards(outfits){
+  document.getElementById('outfitResults').innerHTML=
+    '<div class="outfit-grid">'+outfits.map((outfit,index)=>`
+      <article class="outfit-card">
+        <img src="${outfit.image}" alt="AI-generated ${escapeHTML(outfit.title)} outfit">
+        <div class="outfit-content">
+          <div class="mono">OUTFIT 0${index+1}</div>
+          <h3>${escapeHTML(outfit.title)}</h3>
+          <div class="outfit-pieces">
+            ${outfit.items.map(item=>`<span class="piece-tag">${icons[item.category]||''} ${escapeHTML(item.name)}</span>`).join('')}
+          </div>
+          <p>${escapeHTML(outfit.description)}</p>
+          <p class="outfit-tip">${escapeHTML(outfit.tip)}</p>
+        </div>
+      </article>
+    `).join('')+'</div>';
+}
+
+/* IMPACT CHECK */
+function checkImpact(){
+  const frequency=document.getElementById('wearFrequency').value;
+  const alternatives=document.getElementById('alternatives').value;
+  const secondhand=document.getElementById('secondhand').value;
+  let title='A moment to reconsider.';
+  let message='Before buying, think about whether this item really adds something to your wardrobe.';
+
+  if(frequency==='often' && alternatives==='yes'){
+    title='A thoughtful choice.';
+    message='It sounds like you have considered how this item fits into your wardrobe. Remember to choose quality and wear it often.';
+  }else if(frequency==='rarely'||alternatives==='no'){
+    title='Maybe wait a little.';
+    message='You might already have something that serves the same purpose. Try checking your wardrobe before making a decision.';
+  }
+  if(secondhand==='no') message+=' You could also explore second-hand alternatives before buying new.';
+
+  document.getElementById('impactResult').innerHTML=
+    '<div class="mono">YOUR CONSCIOUS CHECK</div><h3>'+title+'</h3><p>'+message+'</p>';
+}
+
+/* FIVE-DAY RESET */
+const resetChecks=document.querySelectorAll('#resetList input');
+let savedProgress=JSON.parse(localStorage.getItem('rewearReset')||'[]');
+
+resetChecks.forEach((checkbox,index)=>{
+  checkbox.checked=savedProgress.includes(index);
+  checkbox.addEventListener('change',updateProgress);
+});
+
+function updateProgress(){
+  const completed=[];
+  resetChecks.forEach((checkbox,index)=>{if(checkbox.checked)completed.push(index)});
+  localStorage.setItem('rewearReset',JSON.stringify(completed));
+  document.getElementById('progressBar').style.width=(completed.length/5*100)+'%';
+  document.getElementById('progressLabel').textContent=completed.length+' / 5 COMPLETED';
+}
+updateProgress();
+
+/* STYLE QUIZ */
+function runQuiz(){
+  const answer=document.getElementById('quizAnswer').value;
+  const descriptions={
+    explorer:'THE EXPLORER — You love inspiration, creativity and discovering new ways to express yourself.',
+    editor:'THE CONSIDERED EDITOR — You value quality, versatility and thoughtful decisions.',
+    remixer:'THE REMIXER — You see possibilities in what you already own. Your personal style is about creativity, not quantity.'
+  };
+  document.getElementById('quizResult').textContent=
+    descriptions[answer]||'Please choose an answer first.';
 }
 
 renderCloset();
-updateProgress();
 </script>
 </body>
 </html>
