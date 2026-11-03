@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -77,12 +78,27 @@ button,input,select{font:inherit}
 .empty{padding:20px;border:1px dashed #aaa;font-size:12px;color:var(--muted)}
 .wardrobe-choice{display:inline-flex;align-items:center;gap:7px;background:#e9e6dc;padding:9px 11px;margin:0 6px 7px 0;font-size:11px}
 .wardrobe-choice input{accent-color:var(--red)}
-.look-result{background:#e8e5dc;padding:14px;min-height:390px}
-.look-result img{width:100%;height:340px;object-fit:cover;display:block}
-.look-copy{padding:15px 4px 5px;font-size:13px;line-height:1.6}
-.look-copy strong{font:600 22px 'Space Grotesk';display:block;margin-bottom:8px}
+
+/* PERSONALIZED STYLE REMIX */
+.look-result{background:#e8e5dc;padding:22px;min-height:390px}
+.look-copy{padding:15px 4px 5px;font-size:13px;line-height:1.7}
+.look-copy strong{font:600 24px 'Space Grotesk';display:block;margin-bottom:12px}
+.look-copy ul{padding-left:20px}
+.look-copy li{margin-bottom:7px}
 .look-placeholder{min-height:350px;display:grid;place-content:center;text-align:center;font:600 22px 'Space Grotesk';line-height:1.25}
 .look-placeholder span{font:12px 'DM Sans';color:var(--muted);margin-top:12px}
+.outfit-heading{font:10px 'DM Mono';letter-spacing:.14em;text-transform:uppercase;margin-bottom:15px}
+.outfit-composition{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.outfit-piece{min-height:145px;padding:20px 12px;background:var(--white);border:1px solid #d5d1c8;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;position:relative;overflow:hidden}
+.outfit-piece:nth-child(3n+2){background:var(--lime)}
+.outfit-piece:nth-child(3n){background:#dce1ff}
+.piece-icon{font-size:39px;margin-bottom:12px}
+.outfit-piece strong{font:600 13px 'Space Grotesk';text-transform:uppercase;overflow-wrap:anywhere}
+.outfit-piece span{font:9px 'DM Mono';letter-spacing:.1em;text-transform:uppercase;margin-top:7px;color:#666}
+.outfit-mood{background:var(--ink);color:var(--paper);padding:15px;margin-top:14px}
+.outfit-mood strong{font:600 18px 'Space Grotesk';display:block;margin-bottom:6px}
+.outfit-mood p{font-size:12px;line-height:1.6;color:#ddd;margin:0}
+.outfit-disclaimer{font-size:10px;color:var(--muted);line-height:1.5;margin-top:15px}
 .challenge{background:var(--lime)}
 .challengebox{background:var(--ink);color:white;padding:28px;max-width:680px;margin-top:30px}
 .challengebox h3{font:600 30px 'Space Grotesk';margin:0}
@@ -113,6 +129,7 @@ button,input,select{font:inherit}
 .manifesto,.directory,.panelgrid{grid-template-columns:1fr}
 .wrap,.studio{padding:65px 5vw}
 .footer{display:block}.footer p{margin-top:12px}
+.outfit-composition{grid-template-columns:repeat(2,minmax(0,1fr))}
 }
 </style>
 </head>
@@ -206,7 +223,7 @@ button,input,select{font:inherit}
 <div>
 <div class="eyebrow">THE STYLE REMIXER</div>
 <h3>Your pieces.<br>New perspective.</h3>
-<p>Select the clothes you added to your Digital Closet and choose the mood you want. RE:WEAR will create a styling suggestion and match it with an editorial fashion photograph.</p>
+<p>Select the clothes you added to your Digital Closet and choose the mood you want. RE:WEAR will create a visual composition using your selected pieces and give you styling suggestions.</p>
 <div class="field"><label>Your selected wardrobe pieces</label><div id="remixClosetItems" class="empty">Add pieces in Digital Closet first. They will appear here.</div></div>
 <div class="field"><label for="mood">Your mood</label>
 <select id="mood">
@@ -217,7 +234,7 @@ button,input,select{font:inherit}
 <button class="btn" onclick="remix()">GENERATE MY LOOK ↗</button>
 </div>
 <div>
-<div class="eyebrow">YOUR STYLE INSPIRATION</div>
+<div class="eyebrow">YOUR PERSONALIZED OUTFIT</div>
 <div id="outfitResult" class="look-result">
 <div class="look-placeholder">Your next outfit starts here.<br><span>Select your pieces and generate a look.</span></div>
 </div>
@@ -397,29 +414,39 @@ function renderRemixCloset() {
  ).join('');
 }
 
-/* Pre-selected editorial inspiration images.
-   No API calls or external image-generation service are used. */
+/* STYLE REMIX
+   Creates a visual composition from the actual items selected
+   in the Digital Closet. No generic fashion photos or API calls. */
 
 const looks = {
  effortless: {
   title:'OFF-DUTY EFFORTLESS',
-  image:'https://images.unsplash.com/photo-1539109136881-3be0616acf4b?auto=format&fit=crop&w=1000&q=85',
-  description:'Relaxed proportions, easy layers and pieces that work hard. Keep the palette natural and let comfort lead.',
-  tip:'Try pairing a relaxed top with your favourite denim and comfortable shoes.'
+  description:'Relaxed proportions, easy layers and versatile pieces. Keep the styling natural and let comfort lead.',
+  tip:'Styling idea: aim for an easy, balanced silhouette. Try a relaxed fit and avoid overcomplicating the look.'
  },
  bold: {
   title:'ART-SCHOOL ENERGY',
-  image:'https://images.unsplash.com/photo-1529139574466-a303027c1d8b?auto=format&fit=crop&w=1000&q=85',
-  description:'Play with contrast, unexpected proportions and one statement detail. Try a new combination before buying something new.',
-  tip:'Mix different textures, add an unexpected colour and let one piece become the focus.'
+  description:'Play with contrast, unexpected proportions and statement details. Experiment with combinations you might not usually try.',
+  tip:'Styling idea: mix different textures, introduce a contrasting colour and let one piece become the focus.'
  },
  polished: {
   title:'QUIETLY POLISHED',
-  image:'https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=1000&q=85',
-  description:'Clean lines, considered layers and versatile basics. Small styling changes can make familiar pieces feel completely different.',
-  tip:'Build around simple shapes, balanced proportions and accessories you already own.'
+  description:'Clean lines, considered layers and versatile basics. Small styling changes can make familiar pieces feel more refined.',
+  tip:'Styling idea: build around simple shapes, balanced proportions and understated accessories.'
  }
 };
+
+function getPieceIcon(category) {
+ const icons = {
+  'Tops':'👕',
+  'Bottoms':'👖',
+  'Outerwear':'🧥',
+  'Shoes':'👟',
+  'Accessories':'👜',
+  'Dresses':'👗'
+ };
+ return icons[category] || '✳';
+}
 
 function remix() {
  const selected = [...document.querySelectorAll('.remix-piece:checked')]
@@ -434,38 +461,66 @@ function remix() {
 
  const mood = $('mood').value;
  const look = looks[mood];
-
  const categories = [...new Set(selected.map(item => item.category))];
- const names = selected.map(item => item.name);
 
  const suggestions = [];
+
  if (categories.includes('Tops') && categories.includes('Bottoms')) {
-  suggestions.push('Start with your top and bottom as the foundation of the outfit.');
- }
- if (categories.includes('Outerwear')) {
-  suggestions.push('Layer your outerwear over the outfit to add structure and personality.');
- }
- if (categories.includes('Accessories')) {
-  suggestions.push('Use your accessories to give the look a distinctive finishing touch.');
- }
- if (categories.includes('Shoes')) {
-  suggestions.push('Let your shoes set the tone: casual, classic or statement-making.');
- }
- if (!suggestions.length) {
-  suggestions.push('Experiment with layering and proportions to make your selected pieces work together.');
+  suggestions.push('Use your selected top and bottom as the foundation of the outfit. Experiment with tucking, layering or changing proportions.');
  }
 
+ if (categories.includes('Dresses')) {
+  suggestions.push('Make your dress the central piece. Change its feel with the shoes, outerwear or accessories you have selected.');
+ }
+
+ if (categories.includes('Outerwear')) {
+  suggestions.push('Layer your selected outerwear over the outfit to add structure, warmth and personality.');
+ }
+
+ if (categories.includes('Shoes')) {
+  suggestions.push('Use your selected shoes to define the overall feel of the look.');
+ }
+
+ if (categories.includes('Accessories')) {
+  suggestions.push('Finish the outfit with your selected accessories. Small details can change the whole impression.');
+ }
+
+ if (!suggestions.length) {
+  suggestions.push('Start with your selected piece and build around it. Experiment with layering, proportions and accessories already in your wardrobe.');
+ }
+
+ const piecesHTML = selected.map(item => `
+  <div class="outfit-piece">
+   <div class="piece-icon">${getPieceIcon(item.category)}</div>
+   <strong>${escapeHtml(item.name)}</strong>
+   <span>${escapeHtml(item.category)}</span>
+  </div>
+ `).join('');
+
  $('outfitResult').innerHTML = `
-  <img src="${look.image}" alt="Fashion editorial inspiration for ${look.title}" loading="lazy">
+  <div class="outfit-heading">YOUR SELECTED PIECES — ${selected.length} ITEM${selected.length === 1 ? '' : 'S'}</div>
+
+  <div class="outfit-composition">
+   ${piecesHTML}
+  </div>
+
+  <div class="outfit-mood">
+   <strong>${escapeHtml(look.title)}</strong>
+   <p>${escapeHtml(look.description)}</p>
+  </div>
+
   <div class="look-copy">
-   <strong>${look.title}</strong>
-   <b>Your selected pieces:</b> ${names.map(escapeHtml).join(', ')}.
-   <br><br>${look.description}
-   <br><br><b>Your styling notes:</b>
-   <ul>${suggestions.map(s => '<li>'+escapeHtml(s)+'</li>').join('')}</ul>
-   ${escapeHtml(look.tip)}
-   <br><br><i>Editorial inspiration only: the photograph is a style reference, not an exact digital try-on of your clothes.</i>
-  </div>`;
+   <b>YOUR STYLING NOTES</b>
+   <ul>
+    ${suggestions.map(s => `<li>${escapeHtml(s)}</li>`).join('')}
+   </ul>
+   <p>${escapeHtml(look.tip)}</p>
+  </div>
+
+  <div class="outfit-disclaimer">
+   THIS COMPOSITION SHOWS THE ACTUAL ITEMS YOU SELECTED FROM YOUR DIGITAL CLOSET. THE ICONS REPRESENT CLOTHING CATEGORIES, NOT PHOTOGRAPHS OF YOUR EXACT GARMENTS.
+  </div>
+ `;
 }
 
 function impactCheck() {
